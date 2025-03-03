@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+@import "tailwindcss";
+
+.pixel {
+  font-family: "Tiny5", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+@property --angle{
+  syntax: '<angle>'; /* its type */
+  inherits: false;
+  initial-value: -45deg; /* the initial value */
+}
+
+main {
+  background: linear-gradient(var(--angle), theme("colors.slate.950"), theme("colors.indigo.800"), theme("colors.sky.950"), theme("colors.slate.700"), theme("colors.fuchsia.950"));
+  background-size: 400% 400%;
+  animation: gradient 60s ease-in-out infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+    --angle: -45deg;
+  }
+  50% {
+    background-position: 100% 50%;
+    --angle: 45deg;
+  }
+  100% {
+    background-position: 0% 50%;
+    --angle: -45deg;
+  }
+}

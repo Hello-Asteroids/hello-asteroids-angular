@@ -1,0 +1,15 @@
+{
+	"nodes":[
+		{"id":"de785914dbe406c1","x":-660,"y":-400,"width":1060,"height":680,"type":"group","label":"App Flow"},
+		{"id":"8bac9d9bd7733aee","x":-620,"y":-360,"width":250,"height":60,"type":"text","text":"Start"},
+		{"id":"6da2330569a4eb5f","x":-620,"y":-240,"width":250,"height":60,"type":"text","text":"Game Init"},
+		{"id":"0c1ad46b36d1a2cc","x":-620,"y":0,"width":250,"height":60,"type":"text","text":"Game Over"},
+		{"id":"aa0b61efd433dc46","x":-620,"y":-120,"width":250,"height":60,"type":"text","text":"Game"}
+	],
+	"edges":[
+		{"id":"88ca37a9d3a74a09","fromNode":"8bac9d9bd7733aee","fromSide":"bottom","toNode":"6da2330569a4eb5f","toSide":"top"},
+		{"id":"24aaf81e9baa7a84","fromNode":"6da2330569a4eb5f","fromSide":"bottom","toNode":"aa0b61efd433dc46","toSide":"top"},
+		{"id":"a6b5b358daed311a","fromNode":"aa0b61efd433dc46","fromSide":"bottom","toNode":"0c1ad46b36d1a2cc","toSide":"top"},
+		{"id":"98f4a4fb805d8f87","fromNode":"0c1ad46b36d1a2cc","fromSide":"right","toNode":"6da2330569a4eb5f","toSide":"right"}
+	]
+}
