@@ -58,12 +58,6 @@ export default class Gameplay extends Scene implements IGameScene
 
   initialize()
   {
-
-    for( let i = 0; i < 3; i++ )
-    {
-      createPrefab( this._world, asteroidPrefab, { scene : this } );
-    }
-
     this._systems.add( BlitterSystem( this, this._blitter ) );
     this._systems.add( VelocitySystem( this ) );
     this._systems.add( WrapScreenSystem( this ) );

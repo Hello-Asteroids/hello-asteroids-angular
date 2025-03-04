@@ -5,6 +5,7 @@ import { CommandHistoryService, HistoryItem } from './services/command-history.s
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { InvokableService } from '@/app/common/types';
 import { NgIf } from '@angular/common';
+import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 
 @Component({
   selector: 'app-command-terminal',
@@ -30,11 +31,12 @@ export class CommandTerminalComponent implements OnInit
 
   private _registeredServices : Map<string, InvokableService> = new Map();
 
-  constructor( private _gameStateService : GameStateService ){}
+  constructor( private _gameStateService : GameStateService, private _gameWorldService : GameWorldService ){}
 
   ngOnInit() : void
   {
     this._registeredServices.set( 'gamestate', this._gameStateService );
+    this._registeredServices.set( 'gameworld', this._gameWorldService );
   }
 
   handleCommandSubmit( _event : Event ) : void

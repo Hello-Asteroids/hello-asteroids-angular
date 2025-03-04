@@ -2,6 +2,7 @@ import { addComponent, addEntity, IWorld } from "bitecs";
 
 import { getRandomInt } from "@/app/common/utilities";
 
+import Asteroid from "@/game/components/asteroid";
 import Position from "@/game/components/position";
 import Blitter from "@/game/components/blitter";
 import Velocity from "@/game/components/velocity";
@@ -11,6 +12,7 @@ export function asteroidPrefab( _world : IWorld ) : void
 {
   const entity = addEntity( _world );
 
+  addComponent( _world, Asteroid, entity );
   addComponent( _world, Blitter, entity );
   addComponent( _world, Position, entity );
   addComponent( _world, Velocity, entity );
