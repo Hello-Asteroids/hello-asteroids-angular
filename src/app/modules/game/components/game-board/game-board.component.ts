@@ -15,11 +15,10 @@ export class GameBoardComponent implements OnInit
 
   private _gameConfig;
 
-  private _gameStateService : GameStateService;
   private _gameWorldService : GameWorldService;
 
-  constructor( _gameStateService : GameStateService, _gameWorldService : GameWorldService ){
-    this._gameStateService = _gameStateService;
+  constructor( _gameWorldService : GameWorldService )
+  {
     this._gameWorldService = _gameWorldService;
 
     this._gameConfig = {
@@ -28,8 +27,8 @@ export class GameBoardComponent implements OnInit
       transparent: true,
       scale : {
         mode : Phaser.Scale.ScaleModes.FIT,
-        width  : window.innerWidth / 6,
-        height : window.innerHeight / 6
+        width  : window.innerWidth / 5,
+        height : window.innerHeight / 5
       },
       pixelArt : true,
       scene : [
@@ -41,8 +40,6 @@ export class GameBoardComponent implements OnInit
 
   ngOnInit(): void {
     new Game( this._gameConfig );
-
-    this._gameStateService.reset();
     this._gameWorldService.loadLevel( 1 );
   }
 }

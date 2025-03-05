@@ -3,9 +3,8 @@ import { Scene } from 'phaser';
 import type {
 	IWorld,
 } from 'bitecs';
-import { createPrefab, IGameScene, SystemPipeline } from '@/game/types';
+import { IGameScene, SystemPipeline } from '@/game/types';
 import BlitterSystem from '@/game/systems/blitterSystem';
-import { asteroidPrefab } from '@/game/prefabs/asteroid';
 import VelocitySystem from '@/game/systems/velocitySystem';
 import WrapScreenSystem from '@/game/systems/wrapScreenSystem';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';

@@ -1,4 +1,5 @@
-import { defineQuery, defineSystem, IWorld } from "bitecs";
+import { defineQuery, defineSystem } from "bitecs";
+import type { IWorld } from "bitecs";
 
 import WrapScreen from "@/game/components/wrapScreen";
 import Position from "@/game/components/position";

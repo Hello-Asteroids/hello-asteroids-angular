@@ -1,18 +1,18 @@
-import { Component, inject, OnInit, signal, Signal } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, signal, Signal, SimpleChanges } from '@angular/core';
 import { SlidingWindowComponent } from "@/app/common/components/sliding-window/sliding-window.component";
 import { FormsModule } from '@angular/forms';
 import { CommandHistoryService, HistoryItem } from './services/command-history.service';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { InvokableService } from '@/app/common/types';
-import { NgIf } from '@angular/common';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-command-terminal',
   imports: [
+    CommonModule,
     SlidingWindowComponent,
-    FormsModule,
-    NgIf
+    FormsModule
   ],
   templateUrl: './command-terminal.component.html',
   styleUrl: './command-terminal.component.css'
@@ -20,7 +20,6 @@ import { GameWorldService } from '@/app/modules/game/services/game-world/game-wo
 export class CommandTerminalComponent implements OnInit
 {
 
-  private _commandValue : string = '';
   private _commandIndex : number = 0;
 
   private _commandHistory = inject( CommandHistoryService );
@@ -31,7 +30,10 @@ export class CommandTerminalComponent implements OnInit
 
   private _registeredServices : Map<string, InvokableService> = new Map();
 
-  constructor( private _gameStateService : GameStateService, private _gameWorldService : GameWorldService ){}
+  private _gameStateService : GameStateService = inject( GameStateService );
+  private _gameWorldService : GameWorldService = inject( GameWorldService );
+
+  constructor(){}
 
   ngOnInit() : void
   {

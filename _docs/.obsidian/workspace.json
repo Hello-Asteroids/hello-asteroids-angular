@@ -15,8 +15,25 @@
               "state": {
                 "file": "App Diagrams.canvas",
                 "viewState": {
-                  "x": 0,
-                  "y": 0,
+                  "x": -130,
+                  "y": -60,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "App Diagrams"
+            }
+          },
+          {
+            "id": "5cee10fbd4c16976",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "App Diagrams.canvas",
+                "viewState": {
+                  "x": -201,
+                  "y": -18,
                   "zoom": 0
                 }
               },
@@ -24,7 +41,8 @@
               "title": "App Diagrams"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -171,7 +189,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "dd0049bb83c11f6e",
+  "active": "5cee10fbd4c16976",
   "lastOpenFiles": [
     "App Diagrams.canvas"
   ]

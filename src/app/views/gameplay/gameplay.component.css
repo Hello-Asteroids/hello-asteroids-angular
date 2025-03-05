@@ -1,7 +1,7 @@
 .life-icon
 {
   --icon-size: 42px;
-  background-image: url( '/assets/images/spritesheets/Asteroids_Ship_0.0.1.png' );
+  background-image: url( '/assets/images/spritesheets/Asteroids_SpriteSheet_0.0.1.png' );
   background-size: 400%;
   width: var( --icon-size );
   height: var( --icon-size );

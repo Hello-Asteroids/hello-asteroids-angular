@@ -1,4 +1,5 @@
-import { defineQuery, defineSystem, IWorld } from "bitecs";
+import { defineQuery, defineSystem } from "bitecs";
+import type { IWorld } from "bitecs";
 
 import Velocity from "@/game/components/velocity";
 import Position from "@/game/components/position";
