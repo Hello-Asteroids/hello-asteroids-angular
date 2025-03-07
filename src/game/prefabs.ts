@@ -2,14 +2,15 @@ import { addComponent, addEntity, IWorld } from "bitecs";
 
 import { getRandomInt } from "@/app/common/utilities";
 
+import PlayerInput from "@/game/components/playerInput";
 import Asteroid from "@/game/components/asteroid";
 import Position from "@/game/components/position";
 import Blitter from "@/game/components/blitter";
 import Velocity from "@/game/components/velocity";
 import WrapScreen from "@/game/components/wrapScreen";
-import PlayerSpawner from "./components/playerSpawner";
+import PlayerSpawner from "@/game/components/playerSpawner";
 
-export const asteroidPrefab = ( _world : IWorld, opts : { offset : number } = { offset : 0 } ) : void => {
+export const asteroidPrefab = ( _world : IWorld, _opts : { offset : number } = { offset : 0 } ) : void => {
   const entity = addEntity( _world );
 
   addComponent( _world, Asteroid, entity );
@@ -18,7 +19,7 @@ export const asteroidPrefab = ( _world : IWorld, opts : { offset : number } = { 
   addComponent( _world, Velocity, entity );
   addComponent( _world, WrapScreen, entity );
 
-  Blitter.frame[ entity ] = getRandomInt( 4, 7 ) + opts.offset;
+  Blitter.frame[ entity ] = getRandomInt( 4, 7 ) + _opts.offset;
   Blitter.origin.x[ entity ] = 8;
   Blitter.origin.y[ entity ] = 8;
 
@@ -41,6 +42,21 @@ export const playerSpawnerPrefab = ( _world : IWorld ) : void => {
   Position.y[ entity ] = ( window.innerHeight / 5 ) / 2;
 }
 
-export const playerPrefab = ( _world : IWorld ) : void => {
+export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : void => {
+  const entity = addEntity( _world );
 
+  addComponent( _world, PlayerInput, entity );
+  addComponent( _world, Blitter, entity );
+  addComponent( _world, Position, entity );
+  addComponent( _world, Velocity, entity );
+  addComponent( _world, WrapScreen, entity );
+
+  Blitter.frame[ entity ] = 0;
+  Blitter.origin.x[ entity ] = 8;
+  Blitter.origin.y[ entity ] = 8;
+
+  Position.x[ entity ] = _opts.position.x;
+  Position.y[ entity ] = _opts.position.y;
+
+  WrapScreen.offset[ entity ] = 8;
 }

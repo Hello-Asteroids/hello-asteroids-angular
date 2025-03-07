@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'phaser';
 import { GameStateService } from '../../services/game-state/game-state.service';
 import { GameWorldService } from '../../services/game-world/game-world.service';
+import { PlayerInputService } from '../../services/player-input/player-input.service';
 
 @Component({
   standalone: false,
@@ -15,11 +16,8 @@ export class GameBoardComponent implements OnInit
 
   private _gameConfig;
 
-  private _gameWorldService : GameWorldService;
-
-  constructor( _gameWorldService : GameWorldService )
+  constructor( private _gameWorldService : GameWorldService, _playerInputService : PlayerInputService )
   {
-    this._gameWorldService = _gameWorldService;
 
     this._gameConfig = {
       type : Phaser.AUTO,
@@ -33,7 +31,7 @@ export class GameBoardComponent implements OnInit
       pixelArt : true,
       scene : [
         Preloader,
-        new Gameplay( this._gameWorldService )
+        new Gameplay( this._gameWorldService, _playerInputService )
       ],
     }
   }

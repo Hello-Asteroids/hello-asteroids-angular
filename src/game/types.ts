@@ -10,9 +10,15 @@ export const Renderable = {
 	origin : Vector2
 }
 
+export type PlayerInput = {
+  movement : { x : number, y : number },
+  shoot : number
+}
+
 export interface IGameScene
 {
-  deltaTime : number
+  deltaTime : number,
+  playerInput : PlayerInput
 }
 
 export class SystemPipeline

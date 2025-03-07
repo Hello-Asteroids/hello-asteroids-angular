@@ -20,11 +20,11 @@ export default function playerSpawnSystem<T extends IGameScene>( scene : T )
     for( i = 0; i < entities.length; i++ )
     {
       const entity = entities[i];
-      const spawnPosition = { x : Position.x[ entity ], y : Position.y[ entity ] };
+      const position = { x : Position.x[ entity ], y : Position.y[ entity ] };
 
       removeEntity( _world, entity );
 
-      createPrefab( _world, playerPrefab )
+      createPrefab( _world, playerPrefab, { position } );
     }
 
     return _world;

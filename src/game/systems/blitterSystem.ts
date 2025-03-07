@@ -4,9 +4,9 @@ import { GameObjects, Scene } from "phaser";
 import Blitter from "@/game/components/blitter";
 import Position from "@/game/components/position";
 
-const objectMap : Map<number, GameObjects.Bob> = new Map();
+export const objectMap : Map<number, GameObjects.Bob> = new Map();
 
-export default function BlitterSystem<T extends Scene>( scene : T, blitterObject : GameObjects.Blitter )
+export default function BlitterSystem( scene : Scene, blitterObject : GameObjects.Blitter )
 {
   objectMap.clear();
 
