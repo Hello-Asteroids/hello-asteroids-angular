@@ -25,10 +25,11 @@ export class GameBoardComponent implements OnInit
       transparent: true,
       scale : {
         mode : Phaser.Scale.ScaleModes.FIT,
-        width  : window.innerWidth / 5,
-        height : window.innerHeight / 5
+        width  : window.innerWidth,
+        height : window.innerHeight
       },
       pixelArt : true,
+      antialias : true,
       scene : [
         Preloader,
         new Gameplay( this._gameWorldService, _playerInputService )

@@ -1,6 +1,6 @@
 import { defineComponent } from "bitecs";
 import { Renderable } from "@/game/types";
 
-const Blitter = defineComponent( Renderable );
+const Sprite = defineComponent( Renderable );
 
-export default Blitter;
+export default Sprite;

@@ -12,7 +12,7 @@ export default class Preloader extends Scene
 	{
 		console.log( '...preloading...' );
 
-		this.load.spritesheet( 'asteroids', '../../assets/images/spritesheets/Asteroids_SpriteSheet_0.0.1.png', { frameWidth : 16, frameHeight : 16 } );
+		this.load.spritesheet( 'asteroids', '../../assets/images/spritesheets/Asteroids_SpriteSheet_0.0.2.png', { frameWidth : 64, frameHeight : 64 } );
 	}
 
 	create()

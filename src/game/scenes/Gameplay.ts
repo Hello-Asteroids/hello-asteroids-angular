@@ -4,7 +4,7 @@ import type {
 	IWorld,
 } from 'bitecs';
 import { IGameScene, PlayerInput, SystemPipeline } from '@/game/types';
-import BlitterSystem from '@/game/systems/blitterSystem';
+import SpriteSystem from '@/game/systems/spriteSystem';
 import VelocitySystem from '@/game/systems/velocitySystem';
 import WrapScreenSystem from '@/game/systems/wrapScreenSystem';
 import PlayerSpawnSystem from '@/game/systems/playerSpawnSystem';
@@ -12,6 +12,7 @@ import PlayerInputSystem from '@/game/systems/playerInputSystem';
 
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
+import TankControlsSystem from '../systems/tankControlSystem';
 
 export default class Gameplay extends Scene implements IGameScene
 {
@@ -68,16 +69,16 @@ export default class Gameplay extends Scene implements IGameScene
 
   initialize()
   {
-    this._systems.add( BlitterSystem( this, this._blitter ) );
+    this._systems.add( SpriteSystem( this, this._blitter ) );
     this._systems.add( PlayerSpawnSystem( this ) );
     this._systems.add( PlayerInputSystem( this ) );
+    this._systems.add( TankControlsSystem( this ) );
     this._systems.add( VelocitySystem( this ) );
     this._systems.add( WrapScreenSystem( this ) );
   }
 
   override update( _time : number, _delta : number ) : void
   {
-    console.log( JSON.stringify( this.playerInput ) )
     this._deltaTime = _delta / 100;
     this._systems.run( this._world );
   }
