@@ -42,6 +42,16 @@ export class GameStateService extends InvokableService
       this._hi_score.set( this._score() );
   }
 
+  get lives()
+  {
+    return this._lives.asReadonly();
+  }
+
+  get score()
+  {
+    return this._score.asReadonly();
+  }
+
   // Computed
   livesCount = computed( () => {
     return Array.from( { length : this._lives() }, ( _, i ) => i );

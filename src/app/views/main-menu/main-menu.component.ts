@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -7,6 +8,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.css'
 })
-export class MainMenuComponent {
+export class MainMenuComponent implements OnInit
+{
+  constructor( private _gameStateService : GameStateService ){}
 
+  ngOnInit(): void
+  {
+    this._gameStateService.reset();
+  }
 }

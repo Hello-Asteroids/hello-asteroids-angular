@@ -20,8 +20,6 @@ export default function PlayerDeathSystem<T extends IGameScene>( _scene : T )
     {
       removeEntity( _world, entities[i] );
       state.updateLives( -1 );
-
-      createPrefab( _world, playerSpawnerPrefab );
     }
 
     return _world;
