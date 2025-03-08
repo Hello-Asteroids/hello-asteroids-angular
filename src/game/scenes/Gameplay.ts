@@ -13,6 +13,7 @@ import PlayerInputSystem from '@/game/systems/playerInputSystem';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
 import TankControlsSystem from '../systems/tankControlSystem';
+import ShootingSystem from '../systems/shootingSystem';
 
 export default class Gameplay extends Scene implements IGameScene
 {
@@ -73,6 +74,7 @@ export default class Gameplay extends Scene implements IGameScene
     this._systems.add( PlayerSpawnSystem( this ) );
     this._systems.add( PlayerInputSystem( this ) );
     this._systems.add( TankControlsSystem( this ) );
+    this._systems.add( ShootingSystem( this ) );
     this._systems.add( VelocitySystem( this ) );
     this._systems.add( WrapScreenSystem( this ) );
   }

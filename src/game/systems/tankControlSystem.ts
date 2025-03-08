@@ -1,4 +1,3 @@
-import { Scene } from "phaser";
 import { defineQuery, defineSystem } from "bitecs";
 import type { IWorld } from "bitecs";
 
@@ -6,6 +5,7 @@ import { IGameScene } from "@/game/types";
 import TankControls from "@/game/components/tankControls";
 import Velocity from "@/game/components/velocity";
 import Rotation from "@/game/components/rotation";
+import { degToRad } from "@/game/utilities";
 
 export default function TankControlsSystem<T extends IGameScene>( _scene : T )
 {
@@ -23,7 +23,7 @@ export default function TankControlsSystem<T extends IGameScene>( _scene : T )
       const r_delta = playerInput.movement.x * TankControls.rotationSpeed[ entity ] * deltaTime;
       Rotation.value[ entity ] += r_delta;
 
-      const r_offset = 90 * (Math.PI / 180);
+      const r_offset = degToRad( 90 );
 
       if( playerInput.movement.y > 0 )
       {

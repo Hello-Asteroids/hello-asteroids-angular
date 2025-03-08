@@ -11,6 +11,8 @@ import WrapScreen from "@/game/components/wrapScreen";
 import PlayerSpawner from "@/game/components/playerSpawner";
 import Rotation from "./components/rotation";
 import TankControls from "./components/tankControls";
+import Weapon from "./components/weapon";
+import { frameSize } from "./constants";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { offset : number } = { offset : 0 } ) : void => {
   const entity = addEntity( _world );
@@ -49,6 +51,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
 
   addComponent( _world, PlayerInput, entity );
   addComponent( _world, TankControls, entity );
+  addComponent( _world, Weapon, entity );
   addComponent( _world, Sprite, entity );
   addComponent( _world, Position, entity );
   addComponent( _world, Velocity, entity );
@@ -56,14 +59,38 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   addComponent( _world, WrapScreen, entity );
 
   Sprite.frame[ entity ] = 0;
-  Sprite.origin.x[ entity ] = 8;
-  Sprite.origin.y[ entity ] = 8;
+  Sprite.origin.x[ entity ] = 0;
+  Sprite.origin.y[ entity ] = 0;
 
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
 
-  TankControls.acceleration[ entity ] = 20;
+  TankControls.acceleration[ entity ] = 80;
   TankControls.rotationSpeed[ entity ] = 0.5;
 
-  WrapScreen.offset[ entity ] = 8;
+  Weapon.fireRate[ entity ] = 3; // Per second
+
+  WrapScreen.offset[ entity ] = frameSize / 2;
+}
+
+export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, velocity : { x : number, y : number } } ) : void => {
+  const entity = addEntity( _world );
+
+  addComponent( _world, Weapon, entity );
+  addComponent( _world, Sprite, entity );
+  addComponent( _world, Position, entity );
+  addComponent( _world, Velocity, entity );
+  addComponent( _world, WrapScreen, entity );
+
+  Sprite.frame[ entity ] = 20;
+  Sprite.origin.x[ entity ] = frameSize / 2;
+  Sprite.origin.y[ entity ] = frameSize / 2;
+
+  Position.x[ entity ] = _opts.position.x;
+  Position.y[ entity ] = _opts.position.y;
+
+  Velocity.value.x[ entity ] = _opts.velocity.x;
+  Velocity.value.y[ entity ] = _opts.velocity.y;
+
+  WrapScreen.offset[ entity ] = frameSize / 2;
 }
