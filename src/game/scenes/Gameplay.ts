@@ -9,14 +9,24 @@ import VelocitySystem from '@/game/systems/velocitySystem';
 import WrapScreenSystem from '@/game/systems/wrapScreenSystem';
 import PlayerSpawnSystem from '@/game/systems/playerSpawnSystem';
 import PlayerInputSystem from '@/game/systems/playerInputSystem';
+import TankControlsSystem from '@/game/systems/tankControlSystem';
+import ShootingSystem from '@/game/systems/shootingSystem';
+import DurationSystem from '@/game/systems/durationSystem';
+import RadialCollisionSystem from '@/game/systems/radialCollisionSystem';
+import PlayerDeathSystem from '@/game/systems/playerDeathSystem';
 
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
-import TankControlsSystem from '../systems/tankControlSystem';
-import ShootingSystem from '../systems/shootingSystem';
+import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 
 export default class Gameplay extends Scene implements IGameScene
 {
+
+  private _state! : GameStateService;
+	get state() : GameStateService
+	{
+		return this._state;
+	}
 
   private _world! : IWorld;
 	get world() : IWorld
@@ -44,10 +54,11 @@ export default class Gameplay extends Scene implements IGameScene
      return this._deltaTime;
   }
 
-	constructor( _worldService : GameWorldService, _inputService : PlayerInputService )
+	constructor( _stateService : GameStateService, _worldService : GameWorldService, _inputService : PlayerInputService )
 	{
 		super( 'Gameplay' );
 
+    this._state = _stateService;
     this._world = _worldService.world;
     this._playerInput = _inputService;
 	}
@@ -77,6 +88,9 @@ export default class Gameplay extends Scene implements IGameScene
     this._systems.add( ShootingSystem( this ) );
     this._systems.add( VelocitySystem( this ) );
     this._systems.add( WrapScreenSystem( this ) );
+    this._systems.add( RadialCollisionSystem( this ) );
+    this._systems.add( PlayerDeathSystem( this ) );
+    this._systems.add( DurationSystem( this ) );
   }
 
   override update( _time : number, _delta : number ) : void

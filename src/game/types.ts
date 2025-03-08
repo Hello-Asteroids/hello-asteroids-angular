@@ -1,3 +1,4 @@
+import { GameStateService } from "@/app/modules/game/services/game-state/game-state.service";
 import { IWorld, pipe, System, Types } from "bitecs";
 
 export const Vector2 = {
@@ -18,6 +19,7 @@ export type PlayerInput = {
 export interface IGameScene
 {
   deltaTime : number,
+  state : GameStateService,
   playerInput : PlayerInput
 }
 

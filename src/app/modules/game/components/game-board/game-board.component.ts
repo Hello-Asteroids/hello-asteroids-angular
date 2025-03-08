@@ -16,7 +16,7 @@ export class GameBoardComponent implements OnInit
 
   private _gameConfig;
 
-  constructor( private _gameWorldService : GameWorldService, _playerInputService : PlayerInputService )
+  constructor( private _gameStateService : GameStateService, private _gameWorldService : GameWorldService, _playerInputService : PlayerInputService )
   {
 
     this._gameConfig = {
@@ -32,7 +32,7 @@ export class GameBoardComponent implements OnInit
       antialias : true,
       scene : [
         Preloader,
-        new Gameplay( this._gameWorldService, _playerInputService )
+        new Gameplay( this._gameStateService, this._gameWorldService, _playerInputService )
       ],
     }
   }
