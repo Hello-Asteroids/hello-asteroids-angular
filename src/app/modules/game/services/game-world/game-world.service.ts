@@ -5,8 +5,8 @@ import { InvokableService } from '@/app/common/types';
 
 import Asteroid from '@/game/components/asteroid';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
-import { createPrefab } from '@/game/types';
 import { asteroidConfigs } from '@/game/constants';
+import { createPrefab } from '@/app/common/utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class GameWorldService extends InvokableService
     this._world = createWorld();
   }
 
-  loadLevel( _level : number ) : void
+  destroyAsteroids() : void
   {
     const asteroidQuery = defineQuery( [ Asteroid ] );
 
@@ -31,6 +31,11 @@ export class GameWorldService extends InvokableService
     {
       removeEntity(  this._world, entities[i] );
     }
+  }
+
+  loadLevel( _level : number ) : void
+  {
+    this.destroyAsteroids();
 
     let i;
 

@@ -2,7 +2,6 @@ import { Scene } from "phaser";
 import { defineQuery, defineSystem } from "bitecs";
 import type { IWorld } from "bitecs";
 
-import { createPrefab } from "@/game/types";
 import PlayerInput from "@/game/components/playerInput";
 import Rotation from "@/game/components/rotation";
 import Position from "@/game/components/position";
@@ -10,6 +9,7 @@ import Weapon from "@/game/components/weapon";
 import { projectilePrefab } from "@/game/prefabs";
 import { degToRad } from "@/game/utilities";
 import { frameSize } from "@/game/constants";
+import { createPrefab } from "@/app/common/utilities";
 
   export default function ShootingSystem<T extends Scene>(  _scene : T )
   {

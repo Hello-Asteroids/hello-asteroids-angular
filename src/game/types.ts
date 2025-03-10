@@ -46,8 +46,3 @@ export class SystemPipeline
 
   // TODO: remove func
 }
-
-export function createPrefab( _world : IWorld, _cb : ( _world : IWorld, _opts ? : any ) => void, _opts? : any )
-{
-  _cb( _world, _opts );
-}

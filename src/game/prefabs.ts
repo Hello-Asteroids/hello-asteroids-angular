@@ -16,10 +16,10 @@ import Duration from "./components/duration";
 import RadialCollider from "./components/radialCollider";
 import DestroysOnHit from "./components/destroysOnHit";
 
-import { frameSize } from "./constants";
+import { asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "./constants";
 import Player from "./components/player";
 
-export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : void => {
+export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Asteroid, entity );
@@ -40,27 +40,34 @@ export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points
   Position.x[ entity ] = _opts.position?.x || getRandomInt( 0, window.innerWidth );
   Position.y[ entity ] = _opts.position?.y || getRandomInt( 0, window.innerHeight );
 
-  Velocity.value.x[ entity ] = getRandomInt( -8, 8 );
-  Velocity.value.y[ entity ] = getRandomInt( -8, 8 );
+  Velocity.value.x[ entity ] = getRandomInt( -asteroidMaxSpeed, asteroidMaxSpeed );
+  Velocity.value.y[ entity ] = getRandomInt( -asteroidMaxSpeed, asteroidMaxSpeed );
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
   RadialCollider.radius[ entity ] = _opts.radius;
   RadialCollider.layer[ entity ] = 1;
   RadialCollider.mask[ entity ].set( [ 3 ] );
+
+  return entity;
 }
 
-export const playerSpawnerPrefab = ( _world : IWorld ) : void => {
+export const playerSpawnerPrefab = ( _world : IWorld ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, PlayerSpawner, entity );
   addComponent( _world, Position, entity );
+  addComponent( _world, Duration, entity );
 
   Position.x[ entity ] = window.innerWidth / 2;
   Position.y[ entity ] = window.innerHeight / 2;
+
+  Duration.value[ entity ] = 1000;
+
+  return entity;
 }
 
-export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : void => {
+export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Player, entity );
@@ -83,7 +90,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Position.y[ entity ] = _opts.position.y;
 
   TankControls.acceleration[ entity ] = 80;
-  TankControls.rotationSpeed[ entity ] = 0.5;
+  TankControls.rotationSpeed[ entity ] = 0.4;
 
   Weapon.fireRate[ entity ] = 3; // Per second
 
@@ -92,9 +99,40 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   RadialCollider.radius[ entity ] = 16;
   RadialCollider.layer[ entity ] = 2;
   RadialCollider.mask[ entity ].set( [ 1 ] );
+
+  return entity;
 }
 
-export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, velocity : { x : number, y : number } } ) : void => {
+export const playerDebisPrefab = ( _world : IWorld, _opts : { index? : number, offset : number, rotation : number, position : { x : number, y : number }, velocity : { x : number, y : number } } ) : number => {
+  const entity = addEntity( _world );
+
+  addComponent( _world, Sprite, entity );
+  addComponent( _world, Position, entity );
+  addComponent( _world, Velocity, entity );
+  addComponent( _world, Rotation, entity );
+  addComponent( _world, WrapScreen, entity );
+  addComponent( _world, Duration, entity )
+
+  Sprite.frame[ entity ] = 24 + ( _opts.index || 0 );
+  Sprite.origin.x[ entity ] = 0;
+  Sprite.origin.y[ entity ] = 0;
+
+  Position.x[ entity ] = _opts.position.x;
+  Position.y[ entity ] = _opts.position.y;
+
+  Rotation.value[ entity ] = _opts.rotation;
+
+  Velocity.value.x[ entity ] = getRandomInt( -debrisMaxSpeed, debrisMaxSpeed );
+  Velocity.value.y[ entity ] = getRandomInt( -debrisMaxSpeed, debrisMaxSpeed );
+
+  WrapScreen.offset[ entity ] = frameSize / 2;
+
+  Duration.value[ entity ] = 1000 + ( Math.random() * 500 );
+
+  return entity;
+}
+
+export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, velocity : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Weapon, entity );
@@ -123,4 +161,6 @@ export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : nu
   RadialCollider.radius[ entity ] = 4;
   RadialCollider.layer[ entity ] = 3;
   RadialCollider.mask[ entity ].set( [ 1 ] );
+
+  return entity;
 }

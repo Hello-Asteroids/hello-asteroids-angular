@@ -1,10 +1,11 @@
 import { defineQuery, defineSystem, exitQuery, IWorld } from "bitecs";
-import { createPrefab, IGameScene } from "../types";
+import { IGameScene } from "../types";
 import Asteroid from "../components/asteroid";
 import Collision from "../components/collision";
 import { asteroidPrefab } from "../prefabs";
 import { asteroidConfigs } from "../constants";
 import Position from "../components/position";
+import { createPrefabBundle } from "@/app/common/utilities";
 
 export default function AsteroidSystem<T extends IGameScene>( _scene : T )
 {
@@ -37,13 +38,12 @@ export default function AsteroidSystem<T extends IGameScene>( _scene : T )
           }
         };
 
-        createPrefab( _world, asteroidPrefab, config );
-        createPrefab( _world, asteroidPrefab, config );
+        createPrefabBundle( _world, 2, asteroidPrefab, config );
       }
 
       if( asteroidQuery( _world ).length === 0 )
       {
-        stateService.incrementLevel();
+        stateService.incrementLevel( 2500 );
       }
     }
 

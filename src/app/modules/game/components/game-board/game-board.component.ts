@@ -39,6 +39,5 @@ export class GameBoardComponent implements OnInit
 
   ngOnInit(): void {
     new Game( this._gameConfig );
-    this._gameWorldService.loadLevel( 1 );
   }
 }

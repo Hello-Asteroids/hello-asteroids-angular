@@ -42,8 +42,10 @@ export class GameStateService extends InvokableService
       this.hiScore.set( this.score() );
   }
 
-  incrementLevel() : void
+  incrementLevel( _delay : number ) : void
   {
-    this.level.update( current => current + 1 );
+    setTimeout( () => {
+      this.level.update( current => current + 1 );
+    }, _delay )
   }
 }
