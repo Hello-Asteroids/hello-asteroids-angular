@@ -3,8 +3,7 @@
     <div class="relative mb-6">
       <h2 class="text-[6rem] leading-none">Game Over!</h2>
     </div>
-    <p>You Scored {{ gameStateService.score() }}</p>
-    <a routerLink="/gameplay" routerLinkActive="active" skipLocationChange="true" ariaCurrentWhenActive="page" class="hover:text-gray-300 text-4xl">| Play Again? |</a>
+    <p>You Scored {{ this.gameStateService.score() }}</p>
+    <a routerLink="/gameplay" skipLocationChange="true" class="hover:text-gray-300 text-4xl">| Play Again? |</a>
   </div>
 </div>
-

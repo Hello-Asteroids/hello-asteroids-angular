@@ -1,4 +1,4 @@
-import { Component, effect, HostListener, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnInit } from '@angular/core';
 
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
@@ -17,23 +17,45 @@ export class GameplayComponent implements OnInit
   gameWorldService = inject( GameWorldService );
   playerInputService = inject( PlayerInputService );
 
+  livesArray = computed( () => {
+    return Array<undefined>( this.gameStateService.lives() );
+  } )
+
+  scoreDisplay = computed( () => {
+    return this.gameStateService.score().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
+  } )
+
+  hiScoreDisplay = computed( () => {
+    return this.gameStateService.hiScore().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
+  } )
 
   constructor( private _router: Router  ){
+
+    // Lives Effect
     effect( () => {
-      if( this.gameStateService.lives() > 0 )
+      const currentLives = this.gameStateService.lives();
+
+      if( currentLives > 0 )
       {
         this.gameWorldService.spawnPlayer();
       }
       else
       {
-        this._router.navigate( [ '/gameover' ] );
+        this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
       }
+    } );
+
+    // Level Effect
+    effect( () => {
+      const currentLevel = this.gameStateService.level();
+
+      this.gameWorldService.loadLevel( currentLevel );
     } )
   }
 
-  ngOnInit(): void
+  ngOnInit() : void
   {
-    // this.gameWorldService.spawnPlayer();
+    this.gameStateService.reset();
   }
 
   @HostListener( 'document:keydown', [ '$event' ] )

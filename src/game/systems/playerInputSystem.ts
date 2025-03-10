@@ -9,7 +9,7 @@ export default function PlayerInputSystem<T extends IGameScene>( _scene : T )
 
   return defineSystem( ( _world : IWorld ) => {
 
-    const currentInput = _scene.playerInput;
+    const currentInput = _scene.inputService;
     const entities = inputQuery( _world );
     for( let i = 0; i < entities.length; i++ )
     {

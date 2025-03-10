@@ -13,19 +13,27 @@ import TankControlsSystem from '@/game/systems/tankControlSystem';
 import ShootingSystem from '@/game/systems/shootingSystem';
 import DurationSystem from '@/game/systems/durationSystem';
 import RadialCollisionSystem from '@/game/systems/radialCollisionSystem';
-import PlayerDeathSystem from '@/game/systems/playerDeathSystem';
 
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
+import DestroysOnHitSystem from '../systems/destroysOnHitSystem';
+import PlayerSystem from '../systems/playerSystem';
+import AsteroidSystem from '../systems/asteroidSystem';
 
 export default class Gameplay extends Scene implements IGameScene
 {
 
-  private _state! : GameStateService;
-	get state() : GameStateService
+  private _stateService! : GameStateService;
+	get stateService() : GameStateService
 	{
-		return this._state;
+		return this._stateService;
+	}
+
+  private _worldService! : GameWorldService;
+	get worldService() : GameWorldService
+	{
+		return this._worldService;
 	}
 
   private _world! : IWorld;
@@ -34,10 +42,10 @@ export default class Gameplay extends Scene implements IGameScene
 		return this._world;
 	}
 
-  private _playerInput : PlayerInputService;
-  get playerInput() : PlayerInput
+  private _inputService : PlayerInputService;
+  get inputService() : PlayerInput
   {
-    return this._playerInput.input;
+    return this._inputService.input;
   }
 
   private _systems! : SystemPipeline;
@@ -58,9 +66,11 @@ export default class Gameplay extends Scene implements IGameScene
 	{
 		super( 'Gameplay' );
 
-    this._state = _stateService;
+    this._stateService = _stateService;
+    this._worldService = _worldService;
+    this._inputService = _inputService;
+
     this._world = _worldService.world;
-    this._playerInput = _inputService;
 	}
 
 	preload() : void
@@ -81,15 +91,24 @@ export default class Gameplay extends Scene implements IGameScene
 
   initialize()
   {
+    // Display Systems
     this._systems.add( SpriteSystem( this, this._blitter ) );
+
+    // Game Logic Systems
     this._systems.add( PlayerSpawnSystem( this ) );
     this._systems.add( PlayerInputSystem( this ) );
     this._systems.add( TankControlsSystem( this ) );
     this._systems.add( ShootingSystem( this ) );
+    this._systems.add( PlayerSystem( this ) );
+    this._systems.add( AsteroidSystem( this ) );
+
+    // Physics Systems
     this._systems.add( VelocitySystem( this ) );
-    this._systems.add( WrapScreenSystem( this ) );
     this._systems.add( RadialCollisionSystem( this ) );
-    this._systems.add( PlayerDeathSystem( this ) );
+
+    // Utility Systems
+    this._systems.add( DestroysOnHitSystem( this ) );
+    this._systems.add( WrapScreenSystem( this ) );
     this._systems.add( DurationSystem( this ) );
   }
 

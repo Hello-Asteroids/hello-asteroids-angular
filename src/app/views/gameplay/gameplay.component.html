@@ -1,14 +1,14 @@
 <!-- HUD -->
 
 <div class="fixed px-5 py-8">
-  <p class="text-white text-5xl pixel mb-4">{{ this.gameStateService.scoreCount() }}</p>
+  <p class="text-white text-5xl pixel mb-4">{{ this.scoreDisplay() }}</p>
   <div class="flex">
-    @for (item of this.gameStateService.livesCount(); track $index) {
+    @for (item of this.livesArray(); track $index) {
       <span class="life-icon"></span>
     }
   </div>
 </div>
 
 <div class="fixed flex w-full justify-center p-5">
-  <p class="text-white text-3xl pixel text-center">{{ this.gameStateService.hiScoreCount() }}</p>
+  <p class="text-white text-3xl pixel text-center">{{ this.hiScoreDisplay() }}</p>
 </div>

@@ -12,10 +12,10 @@ const DEFAULT_LIVES = 3;
 export class GameStateService extends InvokableService
 {
 
-  private _level : WritableSignal<number> = signal( DEFAULT_LEVEL );
-  private _score : WritableSignal<number> = signal( DEFAULT_SCORE );
-  private _hi_score : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
-  private _lives : WritableSignal<number> = signal( DEFAULT_LIVES );
+  level : WritableSignal<number> = signal( DEFAULT_LEVEL );
+  score : WritableSignal<number> = signal( DEFAULT_SCORE );
+  hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
+  lives : WritableSignal<number> = signal( DEFAULT_LIVES );
 
   constructor()
   {
@@ -24,44 +24,26 @@ export class GameStateService extends InvokableService
 
   reset() : void
   {
-    this._level.set( DEFAULT_LEVEL );
-    this._score.set( DEFAULT_SCORE );
-    this._lives.set( DEFAULT_LIVES );
+    this.level.set( DEFAULT_LEVEL );
+    this.score.set( DEFAULT_SCORE );
+    this.lives.set( DEFAULT_LIVES );
   }
 
   updateLives( value : number ) : void
   {
-    this._lives.update( current => current + +value );
+    this.lives.update( current => current + +value );
   }
 
   updateScore( value : number ) : void
   {
-    this._score.update( current => current + +value );
+    this.score.update( current => current + +value );
 
-    if( this._score() > this._hi_score() )
-      this._hi_score.set( this._score() );
+    if( this.score() > this.hiScore() )
+      this.hiScore.set( this.score() );
   }
 
-  get lives()
+  incrementLevel() : void
   {
-    return this._lives.asReadonly();
+    this.level.update( current => current + 1 );
   }
-
-  get score()
-  {
-    return this._score.asReadonly();
-  }
-
-  // Computed
-  livesCount = computed( () => {
-    return Array.from( { length : this._lives() }, ( _, i ) => i );
-  } )
-
-  scoreCount = computed( () => {
-    return this._score().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
-  } )
-
-  hiScoreCount = computed( () => {
-    return this._hi_score().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
-  } )
 }

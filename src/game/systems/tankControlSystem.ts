@@ -14,7 +14,7 @@ export default function TankControlsSystem<T extends IGameScene>( _scene : T )
 
   return defineSystem( ( _world : IWorld ) => {
 
-    const { deltaTime, playerInput } = _scene;
+    const { deltaTime, inputService: playerInput } = _scene;
 
     const entities = controlQuery( _world );
     for( let i = 0; i < entities.length; i++ )

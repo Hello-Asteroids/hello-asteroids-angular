@@ -1,4 +1,4 @@
-import { addComponent, defineQuery, defineSystem, IWorld, Not } from "bitecs";
+import { addComponent, defineQuery, defineSystem, IWorld, Not, removeComponent } from "bitecs";
 import { Scene } from "phaser";
 import RadialCollider from "../components/radialCollider";
 import Position from "../components/position";
@@ -8,10 +8,11 @@ export default function RadialCollisionSystem( _scene : Scene )
 {
 
   const colliderQuery = defineQuery( [ RadialCollider, Position, Not( Collision ) ] );
+  const collisionQuery = defineQuery( [ RadialCollider, Position, Collision ] );
 
   return defineSystem( ( _world : IWorld ) => {
 
-    const entities = colliderQuery( _world );
+    let entities = colliderQuery( _world );
 
     for( let i = 0; i < entities.length; i++ )
     {
@@ -23,14 +24,7 @@ export default function RadialCollisionSystem( _scene : Scene )
 
         if( i_e !== j_e && RadialCollider.mask[ i_e ].includes( RadialCollider.layer[ j_e ] ) )
         {
-          const i_radius = RadialCollider.radius[ i_e ];
-          const j_radius = RadialCollider.radius[ j_e ];
-          const i_vector = new Phaser.Math.Vector2( Position.x[i_e], Position.y[i_e] );
-          const j_vector = new Phaser.Math.Vector2( Position.x[j_e], Position.y[j_e] );
-
-          const distance = Phaser.Math.Distance.BetweenPoints( i_vector, j_vector );
-
-          if( distance - i_radius - j_radius <= 1 )
+          if( isColliding( i_e, j_e ) )
           {
             addComponent( _world, Collision, i_e );
             Collision.eid[ i_e ] = j_e;
@@ -39,6 +33,33 @@ export default function RadialCollisionSystem( _scene : Scene )
       }
     }
 
+    entities = collisionQuery( _world )
+    for( let i = 0; i < entities.length; i++ )
+    {
+      const entity = entities[i];
+      const collidedWith = Collision.eid[ entity ];
+
+      if( !isColliding( entity, collidedWith ) )
+      {
+        removeComponent( _world, Collision, entity );
+      }
+    }
+
     return _world;
   } )
+}
+
+function isColliding( entityA : number, entityB : number ) : boolean
+{
+  const circle_a = { x : Position.x[ entityA ], y : Position.y[ entityA ], radius : RadialCollider.radius[ entityA ] }
+  const circle_b = { x : Position.x[ entityB ], y : Position.y[ entityB ], radius : RadialCollider.radius[ entityB ] }
+
+  const distance_x = circle_a.x - circle_b.x;
+  const distance_y = circle_a.y - circle_b.y;
+  const distanceSquared = ( distance_x * distance_x ) + ( distance_y * distance_y );
+
+  const radiusTotal = circle_a.radius + circle_b.radius;
+  const radiusSquared = radiusTotal * radiusTotal;
+
+  return distanceSquared <= radiusSquared;
 }

@@ -1,9 +1,12 @@
+import { Injectable } from '@angular/core';
+import { createWorld, defineQuery, IWorld, removeEntity } from 'bitecs';
+
 import { InvokableService } from '@/app/common/types';
+
 import Asteroid from '@/game/components/asteroid';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { createPrefab } from '@/game/types';
-import { Injectable } from '@angular/core';
-import { createWorld, defineQuery, IWorld, removeEntity } from 'bitecs';
+import { asteroidConfigs } from '@/game/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -58,17 +61,17 @@ export class GameWorldService extends InvokableService
 
     for( i = 0; i < asteroids.large; i++ )
     {
-      createPrefab( this._world, asteroidPrefab );
+      createPrefab( this._world, asteroidPrefab, asteroidConfigs[2] );
     }
 
     for( i = 0; i < asteroids.medium; i++ )
     {
-      createPrefab( this._world, asteroidPrefab, { offset : 4 } );
+      createPrefab( this._world, asteroidPrefab, asteroidConfigs[1] );
     }
 
     for( i = 0; i < asteroids.small; i++ )
     {
-      createPrefab( this._world, asteroidPrefab, { offset : 8 } );
+      createPrefab( this._world, asteroidPrefab, asteroidConfigs[0] );
     }
   }
 
