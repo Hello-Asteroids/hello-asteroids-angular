@@ -13,7 +13,6 @@ export default function playerSpawnSystem<T extends IGameScene>( scene : T )
 {
 
   const spawnerQuery = defineQuery( [ PlayerSpawner, Position, Duration ] );
-  const spawnerEnterQuery = enterQuery( spawnerQuery );
   const spawnerExitQuery = exitQuery( spawnerQuery );
 
   return defineSystem( ( _world : IWorld ) => {
@@ -25,7 +24,7 @@ export default function playerSpawnSystem<T extends IGameScene>( scene : T )
     {
       const entity = entities[i];
 
-      // If collision doesn't exist -spawn, otherwise reinitialize spawner
+      // If collision doesn't exist - spawn, otherwise reinitialize spawner
       if( !Collision.eid[ entity ] )
       {
         const position = { x : Position.x[ entity ], y : Position.y[ entity ] };

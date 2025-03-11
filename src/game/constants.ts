@@ -8,3 +8,41 @@ export const asteroidConfigs = [
   { tier : 1, points : 50, offset : 4, radius : frameSize / 4 },
   { tier : 2, points : 20, offset : 0, radius : frameSize / 2 }
 ]
+
+export enum ANIMATIONS {
+  PLAYER_IDLE = 0,
+  PLAYER_THRUST = 1,
+  EXPLOSION = 2
+}
+
+export const spriteAnimations = [
+  {
+    key : 'player_idle',
+    frames : {
+      start : 0,
+      end : 0
+    },
+    frameRate : 8,
+    repeat : -1
+  },
+
+  {
+    key : 'player_thrust',
+    frames : {
+      start : 0,
+      end : 3
+    },
+    frameRate : 8,
+    repeat : -1
+  },
+
+  {
+    key : 'explosion',
+    frames : {
+      start : 20,
+      end : 22
+    },
+    frameRate : 16,
+    repeat : 0
+  }
+]

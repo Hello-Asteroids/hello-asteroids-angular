@@ -13,7 +13,7 @@ export default function SpriteSystem( _scene : Scene, _blitterObject : GameObjec
 
   // Queries
   // Blitters will be used where no Rotation is needed
-  const blitterQuery = defineQuery( [ Sprite, Position, Not(Rotation) ] );
+  const blitterQuery = defineQuery( [ Sprite, Position, Not(Rotation), Not(Animation) ] );
   const blitterEnterQuery = enterQuery( blitterQuery );
   const blitterExitQuery = exitQuery( blitterQuery );
 

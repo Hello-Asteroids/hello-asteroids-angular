@@ -2,10 +2,10 @@ import { defineQuery, defineSystem, exitQuery, IWorld } from "bitecs";
 import { IGameScene } from "../types";
 import Asteroid from "../components/asteroid";
 import Collision from "../components/collision";
-import { asteroidPrefab } from "../prefabs";
+import { asteroidPrefab, explosionPrefab } from "../prefabs";
 import { asteroidConfigs } from "../constants";
 import Position from "../components/position";
-import { createPrefabBundle } from "@/app/common/utilities";
+import { createPrefab, createPrefabBundle } from "@/app/common/utilities";
 
 export default function AsteroidSystem<T extends IGameScene>( _scene : T )
 {
@@ -26,6 +26,11 @@ export default function AsteroidSystem<T extends IGameScene>( _scene : T )
       const entity = entities[i];
 
       stateService.updateScore( Asteroid.points[ entity ] );
+
+      createPrefab( _world, explosionPrefab, { position : {
+        x : Position.x[ entity ],
+        y : Position.y[ entity ]
+      } } );
 
       if( Asteroid.tier[ entity ] > 0 )
       {

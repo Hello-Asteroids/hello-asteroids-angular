@@ -20,6 +20,7 @@ import { GameStateService } from '@/app/modules/game/services/game-state/game-st
 import DestroysOnHitSystem from '../systems/destroysOnHitSystem';
 import PlayerSystem from '../systems/playerSystem';
 import AsteroidSystem from '../systems/asteroidSystem';
+import AnimatedSpriteSystem from '../systems/animatedSpriteSystem';
 
 export default class Gameplay extends Scene implements IGameScene
 {
@@ -93,6 +94,7 @@ export default class Gameplay extends Scene implements IGameScene
   {
     // Display Systems
     this._systems.add( SpriteSystem( this, this._blitter ) );
+    this._systems.add( AnimatedSpriteSystem( this ) );
 
     // Game Logic Systems
     this._systems.add( PlayerSpawnSystem( this ) );

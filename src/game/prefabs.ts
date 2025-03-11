@@ -16,8 +16,9 @@ import Duration from "./components/duration";
 import RadialCollider from "./components/radialCollider";
 import DestroysOnHit from "./components/destroysOnHit";
 
-import { asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "./constants";
+import { ANIMATIONS, asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "./constants";
 import Player from "./components/player";
+import Animation from "./components/animation";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
@@ -65,7 +66,7 @@ export const playerSpawnerPrefab = ( _world : IWorld ) : number => {
 
   Duration.value[ entity ] = 1000;
 
-  RadialCollider.radius[ entity ] = frameSize * 4;
+  RadialCollider.radius[ entity ] = frameSize * 3;
   RadialCollider.layer[ entity ] = 2;
   RadialCollider.mask[ entity ].set( [ 1 ] );
 
@@ -80,6 +81,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   addComponent( _world, TankControls, entity );
   addComponent( _world, Weapon, entity );
   addComponent( _world, Sprite, entity );
+  addComponent( _world, Animation, entity );
   addComponent( _world, Position, entity );
   addComponent( _world, Velocity, entity );
   addComponent( _world, Rotation, entity );
@@ -90,6 +92,8 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Sprite.frame[ entity ] = 0;
   Sprite.origin.x[ entity ] = 0;
   Sprite.origin.y[ entity ] = 0;
+
+  Animation.id[ entity ] = ANIMATIONS.PLAYER_IDLE;
 
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
@@ -132,7 +136,7 @@ export const playerDebisPrefab = ( _world : IWorld, _opts : { index? : number, o
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
-  Duration.value[ entity ] = 1000 + ( Math.random() * 500 );
+  Duration.value[ entity ] = 1000 + ( Math.random() * 750 );
 
   return entity;
 }
@@ -140,7 +144,6 @@ export const playerDebisPrefab = ( _world : IWorld, _opts : { index? : number, o
 export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, velocity : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
-  addComponent( _world, Weapon, entity );
   addComponent( _world, Sprite, entity );
   addComponent( _world, Position, entity );
   addComponent( _world, Velocity, entity );
@@ -166,6 +169,27 @@ export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : nu
   RadialCollider.radius[ entity ] = 4;
   RadialCollider.layer[ entity ] = 3;
   RadialCollider.mask[ entity ].set( [ 1 ] );
+
+  return entity;
+}
+
+export const explosionPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
+  const entity = addEntity( _world );
+
+  addComponent( _world, Sprite, entity );
+  addComponent( _world, Position, entity );
+  addComponent( _world, Rotation, entity );
+  addComponent( _world, Duration, entity );
+  addComponent( _world, Animation, entity );
+
+  Sprite.frame[ entity ] = 20;
+
+  Animation.id[ entity ] = ANIMATIONS.EXPLOSION;
+
+  Position.x[ entity ] = _opts.position.x;
+  Position.y[ entity ] = _opts.position.y;
+
+  Duration.value[ entity ] = 200;
 
   return entity;
 }
