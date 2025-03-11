@@ -35,13 +35,16 @@ export class GameplayComponent implements OnInit
     effect( () => {
       const currentLives = this.gameStateService.lives();
 
-      if( currentLives > 0 )
+      if( this.gameWorldService.playerCount === 0 )
       {
-        this.gameWorldService.spawnPlayer();
-      }
-      else
-      {
-        this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
+        if( currentLives > 0 )
+        {
+          this.gameWorldService.spawnPlayer();
+        }
+        else
+        {
+          this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
+        }
       }
     } );
 

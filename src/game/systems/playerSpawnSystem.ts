@@ -4,16 +4,17 @@ import type { IWorld } from "bitecs";
 import { IGameScene } from "@/game/types";
 import PlayerSpawner from "@/game/components/playerSpawner";
 import Position from "@/game/components/position";
-import { playerPrefab } from "@/game/prefabs";
+import { playerPrefab, playerSpawnerPrefab } from "@/game/prefabs";
 import { createPrefab } from "@/app/common/utilities";
 import Duration from "../components/duration";
+import Collision from "../components/collision";
 
 export default function playerSpawnSystem<T extends IGameScene>( scene : T )
 {
 
   const spawnerQuery = defineQuery( [ PlayerSpawner, Position, Duration ] );
   const spawnerEnterQuery = enterQuery( spawnerQuery );
-  const spawnerExitQuery = exitQuery( spawnerQuery )
+  const spawnerExitQuery = exitQuery( spawnerQuery );
 
   return defineSystem( ( _world : IWorld ) => {
 
@@ -23,11 +24,18 @@ export default function playerSpawnSystem<T extends IGameScene>( scene : T )
     for( i = 0; i < entities.length; i++ )
     {
       const entity = entities[i];
-      const position = { x : Position.x[ entity ], y : Position.y[ entity ] };
 
-      removeEntity( _world, entity );
+      // If collision doesn't exist -spawn, otherwise reinitialize spawner
+      if( !Collision.eid[ entity ] )
+      {
+        const position = { x : Position.x[ entity ], y : Position.y[ entity ] };
 
-      createPrefab( _world, playerPrefab, { position } );
+        createPrefab( _world, playerPrefab, { position } );
+      }
+      else
+      {
+        createPrefab( _world, playerSpawnerPrefab );
+      }
     }
 
     return _world;

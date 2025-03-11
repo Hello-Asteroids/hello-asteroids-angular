@@ -58,11 +58,16 @@ export const playerSpawnerPrefab = ( _world : IWorld ) : number => {
   addComponent( _world, PlayerSpawner, entity );
   addComponent( _world, Position, entity );
   addComponent( _world, Duration, entity );
+  addComponent( _world, RadialCollider, entity );
 
   Position.x[ entity ] = window.innerWidth / 2;
   Position.y[ entity ] = window.innerHeight / 2;
 
   Duration.value[ entity ] = 1000;
+
+  RadialCollider.radius[ entity ] = frameSize * 4;
+  RadialCollider.layer[ entity ] = 2;
+  RadialCollider.mask[ entity ].set( [ 1 ] );
 
   return entity;
 }

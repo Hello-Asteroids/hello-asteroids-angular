@@ -10,14 +10,17 @@ import { createPrefab, createPrefabBundle } from "@/app/common/utilities";
 export default function PlayerSystem<T extends IGameScene>( _scene : T )
 {
 
-  const playerQuery = defineQuery( [ Player, Position, Rotation, Collision ] );
+  const playerQuery = defineQuery( [ Player ] );
   const playerExitQuery = exitQuery( playerQuery );
+
+  const playerCollisionQuery = defineQuery( [ Player, Position, Rotation, Collision ] );
+  const playerCollisionExitQuery = exitQuery( playerCollisionQuery );
 
   const { stateService: state } = _scene;
 
   return defineSystem( ( _world : IWorld ) => {
 
-    let entities = playerExitQuery( _world );
+    let entities = playerCollisionExitQuery( _world );
     for( let i = 0; i < entities.length; i++ )
     {
       const entity = entities[i];
@@ -34,7 +37,6 @@ export default function PlayerSystem<T extends IGameScene>( _scene : T )
       if( playerQuery( _world ).length === 0 )
       {
         state.updateLives( -1 );
-
       }
     }
 

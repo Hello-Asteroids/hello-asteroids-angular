@@ -17,6 +17,8 @@ export class GameStateService extends InvokableService
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
   lives : WritableSignal<number> = signal( DEFAULT_LIVES );
 
+  private additionalLives : number = 0;
+
   constructor()
   {
     super();
@@ -27,6 +29,7 @@ export class GameStateService extends InvokableService
     this.level.set( DEFAULT_LEVEL );
     this.score.set( DEFAULT_SCORE );
     this.lives.set( DEFAULT_LIVES );
+    this.additionalLives = 0;
   }
 
   updateLives( value : number ) : void
@@ -40,6 +43,13 @@ export class GameStateService extends InvokableService
 
     if( this.score() > this.hiScore() )
       this.hiScore.set( this.score() );
+
+    const newAdditionalLives = Math.floor( this.score() / 10000 );
+    if( newAdditionalLives > this.additionalLives )
+    {
+      this.additionalLives = newAdditionalLives;
+      this.updateLives( 1 );
+    }
   }
 
   incrementLevel( _delay : number ) : void

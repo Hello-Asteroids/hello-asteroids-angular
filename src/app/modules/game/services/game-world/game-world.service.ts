@@ -6,7 +6,8 @@ import { InvokableService } from '@/app/common/types';
 import Asteroid from '@/game/components/asteroid';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { asteroidConfigs } from '@/game/constants';
-import { createPrefab } from '@/app/common/utilities';
+import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
+import Player from '@/game/components/player';
 
 @Injectable({
   providedIn: 'root'
@@ -64,20 +65,9 @@ export class GameWorldService extends InvokableService
       }
     }
 
-    for( i = 0; i < asteroids.large; i++ )
-    {
-      createPrefab( this._world, asteroidPrefab, asteroidConfigs[2] );
-    }
-
-    for( i = 0; i < asteroids.medium; i++ )
-    {
-      createPrefab( this._world, asteroidPrefab, asteroidConfigs[1] );
-    }
-
-    for( i = 0; i < asteroids.small; i++ )
-    {
-      createPrefab( this._world, asteroidPrefab, asteroidConfigs[0] );
-    }
+    createPrefabBundle( this._world, asteroids.small, asteroidPrefab, asteroidConfigs[0] );
+    createPrefabBundle( this._world, asteroids.medium, asteroidPrefab, asteroidConfigs[1] );
+    createPrefabBundle( this._world, asteroids.large, asteroidPrefab, asteroidConfigs[2] );
   }
 
   spawnPlayer() : void
@@ -89,5 +79,11 @@ export class GameWorldService extends InvokableService
   get world() : IWorld
   {
     return this._world;
+  }
+
+  get playerCount() : number
+  {
+    const playerQuery = defineQuery( [ Player ] );
+    return playerQuery( this._world ).length;
   }
 }
