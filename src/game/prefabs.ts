@@ -183,6 +183,8 @@ export const explosionPrefab = ( _world : IWorld, _opts : { position : { x : num
   addComponent( _world, Animation, entity );
 
   Sprite.frame[ entity ] = 20;
+  Sprite.origin.x[ entity ] = 0;
+  Sprite.origin.y[ entity ] = 0;
 
   Animation.id[ entity ] = ANIMATIONS.EXPLOSION;
 
