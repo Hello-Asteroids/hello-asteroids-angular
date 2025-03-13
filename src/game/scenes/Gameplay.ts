@@ -21,6 +21,7 @@ import DestroysOnHitSystem from '../systems/destroysOnHitSystem';
 import PlayerSystem from '../systems/playerSystem';
 import AsteroidSystem from '../systems/asteroidSystem';
 import AnimatedSpriteSystem from '../systems/animatedSpriteSystem';
+import PointsSystem from '../systems/pointsSystem';
 
 export default class Gameplay extends Scene implements IGameScene
 {
@@ -103,6 +104,7 @@ export default class Gameplay extends Scene implements IGameScene
     this._systems.add( ShootingSystem( this ) );
     this._systems.add( PlayerSystem( this ) );
     this._systems.add( AsteroidSystem( this ) );
+    this._systems.add( PointsSystem( this ) );
 
     // Physics Systems
     this._systems.add( VelocitySystem( this ) );

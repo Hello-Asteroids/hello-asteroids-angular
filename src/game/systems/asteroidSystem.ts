@@ -25,8 +25,6 @@ export default function AsteroidSystem<T extends IGameScene>( _scene : T )
     {
       const entity = entities[i];
 
-      stateService.updateScore( Asteroid.points[ entity ] );
-
       createPrefab( _world, explosionPrefab, { position : {
         x : Position.x[ entity ],
         y : Position.y[ entity ]

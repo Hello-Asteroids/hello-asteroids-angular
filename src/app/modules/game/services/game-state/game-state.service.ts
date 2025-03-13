@@ -47,8 +47,8 @@ export class GameStateService extends InvokableService
     const newAdditionalLives = Math.floor( this.score() / 10000 );
     if( newAdditionalLives > this.additionalLives )
     {
-      this.additionalLives = newAdditionalLives;
       this.updateLives( 1 );
+      this.additionalLives = newAdditionalLives;
     }
   }
 

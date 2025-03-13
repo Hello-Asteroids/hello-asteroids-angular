@@ -12,7 +12,8 @@ export const asteroidConfigs = [
 export enum ANIMATIONS {
   PLAYER_IDLE = 0,
   PLAYER_THRUST = 1,
-  EXPLOSION = 2
+  EXPLOSION = 2,
+  ENEMY_THRUST = 3
 }
 
 export const spriteAnimations = [
@@ -29,10 +30,10 @@ export const spriteAnimations = [
   {
     key : 'player_thrust',
     frames : {
-      start : 0,
+      start : 1,
       end : 3
     },
-    frameRate : 8,
+    frameRate : 10,
     repeat : -1
   },
 
@@ -44,5 +45,15 @@ export const spriteAnimations = [
     },
     frameRate : 16,
     repeat : 0
+  },
+
+  {
+    key : 'enemy_thrust',
+    frames : {
+      start : 16,
+      end : 19
+    },
+    frameRate : 8,
+    repeat : -1
   }
 ]

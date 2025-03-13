@@ -19,6 +19,7 @@ import DestroysOnHit from "./components/destroysOnHit";
 import { ANIMATIONS, asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "./constants";
 import Player from "./components/player";
 import Animation from "./components/animation";
+import WorthPoints from "./components/worthPoints";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
@@ -30,9 +31,9 @@ export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points
   addComponent( _world, WrapScreen, entity );
   addComponent( _world, RadialCollider, entity );
   addComponent( _world, DestroysOnHit, entity );
+  addComponent( _world, WorthPoints, entity )
 
   Asteroid.tier[ entity ] = _opts.tier;
-  Asteroid.points[ entity ] = _opts.points;
 
   Sprite.frame[ entity ] = getRandomInt( 4, 7 ) + _opts.offset;
   Sprite.origin.x[ entity ] = frameSize / 2;
@@ -49,6 +50,8 @@ export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points
   RadialCollider.radius[ entity ] = _opts.radius;
   RadialCollider.layer[ entity ] = 1;
   RadialCollider.mask[ entity ].set( [ 3 ] );
+
+  WorthPoints.value[ entity ] = _opts.points;
 
   return entity;
 }
@@ -107,7 +110,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
 
   RadialCollider.radius[ entity ] = 16;
   RadialCollider.layer[ entity ] = 2;
-  RadialCollider.mask[ entity ].set( [ 1 ] );
+  RadialCollider.mask[ entity ].set( [ 1, 4 ] );
 
   return entity;
 }
@@ -192,6 +195,39 @@ export const explosionPrefab = ( _world : IWorld, _opts : { position : { x : num
   Position.y[ entity ] = _opts.position.y;
 
   Duration.value[ entity ] = 200;
+
+  return entity;
+}
+
+export const enemyPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
+  const entity = addEntity( _world );
+
+  addComponent( _world, Weapon, entity );
+  addComponent( _world, Sprite, entity );
+  addComponent( _world, Animation, entity );
+  addComponent( _world, Position, entity );
+  addComponent( _world, Velocity, entity );
+  addComponent( _world, Rotation, entity );
+  addComponent( _world, WrapScreen, entity );
+  addComponent( _world, RadialCollider, entity );
+  addComponent( _world, DestroysOnHit, entity );
+
+  Sprite.frame[ entity ] = 16;
+  Sprite.origin.x[ entity ] = 0;
+  Sprite.origin.y[ entity ] = 0;
+
+  Animation.id[ entity ] = ANIMATIONS.ENEMY_THRUST;
+
+  Position.x[ entity ] = _opts.position?.x || getRandomInt( 0, window.innerWidth );
+  Position.y[ entity ] = _opts.position?.y || getRandomInt( 0, window.innerHeight );
+
+  Weapon.fireRate[ entity ] = 3; // Per second
+
+  WrapScreen.offset[ entity ] = frameSize / 2;
+
+  RadialCollider.radius[ entity ] = 16;
+  RadialCollider.layer[ entity ] = 4;
+  RadialCollider.mask[ entity ].set( [ 1, 2, 3] );
 
   return entity;
 }

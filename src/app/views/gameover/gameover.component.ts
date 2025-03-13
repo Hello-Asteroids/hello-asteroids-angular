@@ -8,11 +8,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './gameover.component.html',
   styleUrl: './gameover.component.css'
 })
-export class GameoverComponent implements OnInit
+export class GameoverComponent
 {
   gameStateService : GameStateService = inject( GameStateService );
 
   constructor(){}
-
-  ngOnInit() : void {}
 }

@@ -34,8 +34,8 @@ import { createPrefab } from "@/app/common/utilities";
           const r_offset = degToRad( 90 );
           Weapon.lastFired[ entity ] = time.now;
           // Spawn projectile
-          const p_x = Position.x[ entity ] + Math.cos( rotation - r_offset ) * ( frameSize / 2 );
-          const p_y = Position.y[ entity ] + Math.sin( rotation - r_offset ) * ( frameSize / 2 );
+          const p_x = Position.x[ entity ] + Math.cos( rotation - r_offset ) * ( frameSize / 4 );
+          const p_y = Position.y[ entity ] + Math.sin( rotation - r_offset ) * ( frameSize / 4 );
 
           const v_x = Math.cos( rotation - r_offset ) * 130
           const v_y = Math.sin( rotation - r_offset ) * 130

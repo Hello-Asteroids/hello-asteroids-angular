@@ -4,7 +4,7 @@ import { createWorld, defineQuery, IWorld, removeEntity } from 'bitecs';
 import { InvokableService } from '@/app/common/types';
 
 import Asteroid from '@/game/components/asteroid';
-import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
+import { asteroidPrefab, enemyPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { asteroidConfigs } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
 import Player from '@/game/components/player';

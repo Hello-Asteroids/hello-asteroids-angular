@@ -1,10 +1,10 @@
-import Gameplay from '@/game/scenes/Gameplay';
-import Preloader from '@/game/scenes/Preloader';
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'phaser';
-import { GameStateService } from '../../services/game-state/game-state.service';
-import { GameWorldService } from '../../services/game-world/game-world.service';
-import { PlayerInputService } from '../../services/player-input/player-input.service';
+import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
+import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
+import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
+import Gameplay from '@/game/scenes/Gameplay';
+import Preloader from '@/game/scenes/Preloader';
 
 @Component({
   standalone: false,
