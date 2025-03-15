@@ -38,10 +38,9 @@ export default class Gameplay extends Scene implements IGameScene
 		return this._worldService;
 	}
 
-  private _world! : IWorld;
 	get world() : IWorld
 	{
-		return this._world;
+		return this._worldService.world;
 	}
 
   private _inputService : PlayerInputService;
@@ -71,8 +70,6 @@ export default class Gameplay extends Scene implements IGameScene
     this._stateService = _stateService;
     this._worldService = _worldService;
     this._inputService = _inputService;
-
-    this._world = _worldService.world;
 	}
 
 	preload() : void
@@ -98,7 +95,7 @@ export default class Gameplay extends Scene implements IGameScene
     this._systems.add( AnimatedSpriteSystem( this ) );
 
     // Game Logic Systems
-    this._systems.add( PlayerSpawnSystem( this ) );
+    this._systems.add( PlayerSpawnSystem() );
     this._systems.add( PlayerInputSystem( this ) );
     this._systems.add( TankControlsSystem( this ) );
     this._systems.add( ShootingSystem( this ) );
@@ -119,6 +116,6 @@ export default class Gameplay extends Scene implements IGameScene
   override update( _time : number, _delta : number ) : void
   {
     this._deltaTime = _delta / 100;
-    this._systems.run( this._world );
+    this._systems.run( this.world );
   }
 }

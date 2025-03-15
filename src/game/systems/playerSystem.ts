@@ -1,20 +1,22 @@
-import { defineQuery, defineSystem, exitQuery, IWorld } from "bitecs";
-import { IGameScene } from "../types";
-import Player from "../components/player";
-import { playerDebisPrefab } from "../prefabs";
-import Position from "../components/position";
-import Rotation from "../components/rotation";
-import Collision from "../components/collision";
-import { createPrefab, createPrefabBundle } from "@/app/common/utilities";
-import Velocity from "../components/velocity";
-import Animation from "../components/animation";
-import { ANIMATIONS } from "../constants";
+import { defineQuery, defineSystem, exitQuery } from "bitecs";
+import type { IWorld } from "bitecs";
+
+import { IGameScene } from "@/game/types";
+import { playerDebisPrefab } from "@/game/prefabs";
+import { createPrefabBundle } from "@/app/common/utilities";
+import { ANIMATIONS } from "@/game/constants";
+
+import Player from "@/game/components/player";
+import Position from "@/game/components/position";
+import Rotation from "@/game/components/rotation";
+import Collision from "@/game/components/collision";
+import Velocity from "@/game/components/velocity";
+import Animation from "@/game/components/animation";
 
 export default function PlayerSystem<T extends IGameScene>( _scene : T )
 {
 
   const playerQuery = defineQuery( [ Player, Velocity, Animation ] );
-  const playerExitQuery = exitQuery( playerQuery );
 
   const playerCollisionQuery = defineQuery( [ Player, Position, Rotation, Collision ] );
   const playerCollisionExitQuery = exitQuery( playerCollisionQuery );

@@ -1,6 +1,7 @@
+import { GameObjects, Scene } from "phaser";
 import { defineQuery, defineSystem, enterQuery, exitQuery, Not } from "bitecs";
 import type { IWorld } from 'bitecs';
-import { GameObjects, Scene } from "phaser";
+
 import Position from "@/game/components/position";
 import Rotation from "@/game/components/rotation";
 import Sprite from "@/game/components/sprite";

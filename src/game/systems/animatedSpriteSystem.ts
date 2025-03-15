@@ -1,10 +1,12 @@
 import { Changed, defineQuery, defineSystem, enterQuery } from "bitecs";
 import type { IWorld } from 'bitecs';
-import { IGameScene } from "../types";
 import { GameObjects, Scene } from "phaser";
-import { spriteAnimations } from "../constants";
-import Sprite from "../components/sprite";
-import Animation from "../components/animation";
+
+import { IGameScene } from "@/game/types";
+import { spriteAnimations } from "@/game/constants";
+import Sprite from "@/game/components/sprite";
+import Animation from "@/game/components/animation";
+
 import { displayObjectMap } from "./spriteSystem";
 
 export default function AnimatedSpriteSystem<T extends Scene & IGameScene>( _scene : T )

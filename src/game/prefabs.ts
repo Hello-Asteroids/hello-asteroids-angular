@@ -9,17 +9,18 @@ import Sprite from "@/game/components/sprite";
 import Velocity from "@/game/components/velocity";
 import WrapScreen from "@/game/components/wrapScreen";
 import PlayerSpawner from "@/game/components/playerSpawner";
-import Rotation from "./components/rotation";
-import TankControls from "./components/tankControls";
-import Weapon from "./components/weapon";
-import Duration from "./components/duration";
-import RadialCollider from "./components/radialCollider";
-import DestroysOnHit from "./components/destroysOnHit";
+import Rotation from "@/game/components/rotation";
+import TankControls from "@/game/components/tankControls";
+import Weapon from "@/game/components/weapon";
+import Duration from "@/game/components/duration";
+import RadialCollider from "@/game/components/radialCollider";
+import DestroysOnHit from "@/game/components/destroysOnHit";
 
-import { ANIMATIONS, asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "./constants";
-import Player from "./components/player";
-import Animation from "./components/animation";
-import WorthPoints from "./components/worthPoints";
+import { ANIMATIONS, asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "@/game/constants";
+import Player from "@/game/components/player";
+import Animation from "@/game/components/animation";
+import WorthPoints from "@/game/components/worthPoints";
+import Enemy from "@/game/components/enemy";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
@@ -105,6 +106,8 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   TankControls.rotationSpeed[ entity ] = 0.4;
 
   Weapon.fireRate[ entity ] = 3; // Per second
+  Weapon.projectileCount[ entity ] = 1;
+  Weapon.spread[ entity ] = 20;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
@@ -167,7 +170,7 @@ export const projectilePrefab = ( _world : IWorld, _opts : { position : { x : nu
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
-  Duration.value[ entity ] = 1000;
+  Duration.value[ entity ] = 800;
 
   RadialCollider.radius[ entity ] = 4;
   RadialCollider.layer[ entity ] = 3;
@@ -202,6 +205,7 @@ export const explosionPrefab = ( _world : IWorld, _opts : { position : { x : num
 export const enemyPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
+  addComponent( _world, Enemy, entity );
   addComponent( _world, Weapon, entity );
   addComponent( _world, Sprite, entity );
   addComponent( _world, Animation, entity );

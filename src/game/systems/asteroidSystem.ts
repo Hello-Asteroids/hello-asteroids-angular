@@ -1,17 +1,19 @@
 import { defineQuery, defineSystem, exitQuery, IWorld } from "bitecs";
-import { IGameScene } from "../types";
-import Asteroid from "../components/asteroid";
-import Collision from "../components/collision";
-import { asteroidPrefab, explosionPrefab } from "../prefabs";
-import { asteroidConfigs } from "../constants";
-import Position from "../components/position";
+
 import { createPrefab, createPrefabBundle } from "@/app/common/utilities";
+
+import { IGameScene } from "@/game/types";
+import { asteroidPrefab, explosionPrefab } from "@/game/prefabs";
+import { asteroidConfigs } from "@/game/constants";
+
+import Asteroid from "@/game/components/asteroid";
+import Collision from "@/game/components/collision";
+import Position from "@/game/components/position";
 
 export default function AsteroidSystem<T extends IGameScene>( _scene : T )
 {
 
   const asteroidQuery = defineQuery( [ Asteroid ] );
-  const asteroidExitQuery = exitQuery( asteroidQuery );
 
   const hitAsteroidQuery = defineQuery( [ Asteroid, Position, Collision ] );
   const hitAsteroidExitQuery = exitQuery( hitAsteroidQuery );

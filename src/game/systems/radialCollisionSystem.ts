@@ -1,8 +1,10 @@
-import { addComponent, defineQuery, defineSystem, IWorld, Not, removeComponent } from "bitecs";
 import { Scene } from "phaser";
-import RadialCollider from "../components/radialCollider";
-import Position from "../components/position";
-import Collision from "../components/collision";
+import { addComponent, defineQuery, defineSystem, Not, removeComponent } from "bitecs";
+import type { IWorld } from "bitecs";
+
+import RadialCollider from "@/game/components/radialCollider";
+import Position from "@/game/components/position";
+import Collision from "@/game/components/collision";
 
 export default function RadialCollisionSystem( _scene : Scene )
 {

@@ -1,7 +1,10 @@
-import { defineQuery, defineSystem, exitQuery, IWorld } from "bitecs";
-import { IGameScene } from "../types";
-import WorthPoints from "../components/worthPoints";
-import Collision from "../components/collision";
+import { defineQuery, defineSystem, exitQuery } from "bitecs";
+import type { IWorld } from "bitecs";
+
+import { IGameScene } from "@/game/types";
+
+import WorthPoints from "@/game/components/worthPoints";
+import Collision from "@/game/components/collision";
 
 export default function PointsSystem<T extends IGameScene>( _scene : T )
 {

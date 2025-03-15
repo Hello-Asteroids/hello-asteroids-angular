@@ -1,7 +1,7 @@
 import { Scene } from "phaser";
 import { defineQuery, defineSystem, enterQuery, removeEntity } from "bitecs";
 import type { IWorld } from 'bitecs';
-import Duration from "../components/duration";
+import Duration from "@/game/components/duration";
 
 export default function DurationSystem( _scene : Scene )
 {

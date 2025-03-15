@@ -1,15 +1,17 @@
-import { defineQuery, defineSystem, enterQuery, exitQuery, removeEntity } from "bitecs";
+import { defineQuery, defineSystem, exitQuery } from "bitecs";
 import type { IWorld } from "bitecs";
 
+import { createPrefab } from "@/app/common/utilities";
+
 import { IGameScene } from "@/game/types";
+import { playerPrefab, playerSpawnerPrefab } from "@/game/prefabs";
+
 import PlayerSpawner from "@/game/components/playerSpawner";
 import Position from "@/game/components/position";
-import { playerPrefab, playerSpawnerPrefab } from "@/game/prefabs";
-import { createPrefab } from "@/app/common/utilities";
-import Duration from "../components/duration";
-import Collision from "../components/collision";
+import Duration from "@/game/components/duration";
+import Collision from "@/game/components/collision";
 
-export default function playerSpawnSystem<T extends IGameScene>( scene : T )
+export default function playerSpawnSystem()
 {
 
   const spawnerQuery = defineQuery( [ PlayerSpawner, Position, Duration ] );

@@ -1,5 +1,6 @@
 import { defineQuery, defineSystem } from "bitecs";
 import type { IWorld } from 'bitecs';
+
 import { IGameScene } from "@/game/types";
 import PlayerInput from "@/game/components/playerInput";
 

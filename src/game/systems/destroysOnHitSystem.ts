@@ -1,6 +1,8 @@
 import { defineQuery, defineSystem, enterQuery, removeEntity } from "bitecs";
 import type { IWorld } from "bitecs";
+
 import { IGameScene } from "@/game/types";
+
 import Collision from "@/game/components/collision";
 import DestroysOnHit from "@/game/components/destroysOnHit";
 
