@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createWorld, defineQuery, IWorld, removeEntity } from 'bitecs';
 
-import { InvokableService } from '@/app/common/types';
+import { IInvokableService } from '@/app/common/types';
 
 import Asteroid from '@/game/components/asteroid';
 import { asteroidPrefab, enemyPrefab, playerSpawnerPrefab } from '@/game/prefabs';
@@ -12,14 +12,13 @@ import Player from '@/game/components/player';
 @Injectable({
   providedIn: 'root'
 })
-export class GameWorldService extends InvokableService
+export class GameWorldService implements IInvokableService
 {
 
   private _world : IWorld;
 
   constructor()
   {
-    super();
     this._world = createWorld();
   }
 
@@ -86,4 +85,9 @@ export class GameWorldService extends InvokableService
     const playerQuery = defineQuery( [ Player ] );
     return playerQuery( this._world ).length;
   }
+
+  invoke(_commandParts: string[]) : string
+  {
+    return '';
+  };
 }

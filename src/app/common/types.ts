@@ -1,11 +1,12 @@
-export class InvokableService
+export interface IInvokableService
 {
-  invoke( _commandParts : string[] ) : string
-  {
-    const command = _commandParts[1]
+  // invoke( _commandParts : string[] ) : string
+  // {
+  //   const command = _commandParts[1]
 
-    console.log( typeof( ( this as any )[command]() ) )
+  //   console.log( typeof( ( this as any )[command]() ) )
 
-    return '';
-  }
+  //   return '';
+  // }
+  invoke : ( _commandParts : string[] ) => string
 }

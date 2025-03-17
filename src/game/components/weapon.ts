@@ -7,7 +7,8 @@ const Weapon = defineComponent( {
   range : Types.f32,
   projectileSpeed : Types.f32,
   projectileCount : Types.ui8,
-  spread : Types.ui16
+  spread : Types.ui16,
+  deviation : Types.f32
 } );
 
 export default Weapon;

@@ -52,8 +52,10 @@ import Duration from "@/game/components/duration";
 
             const spreadAngle = degToRad( spreadOrigin + p_i * spreadStep );
 
-            const v_x = Math.cos( direction + spreadAngle ) * Weapon.projectileSpeed[ entity ];
-            const v_y = Math.sin( direction + spreadAngle ) * Weapon.projectileSpeed[ entity ];
+            const deviation = degToRad( ( Math.random() * 2 - 1 ) * Weapon.deviation[ entity ] );
+
+            const v_x = Math.cos( direction + spreadAngle + deviation ) * Weapon.projectileSpeed[ entity ];
+            const v_y = Math.sin( direction + spreadAngle + deviation ) * Weapon.projectileSpeed[ entity ];
 
             const projectileEntity = createPrefab( _world, projectilePrefab, { position : { x : p_x, y : p_y }, velocity : { x : v_x, y : v_y } } );
             Duration.value[ projectileEntity ] = Weapon.range[ entity ];

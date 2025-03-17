@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
-import { InvokableService } from '@/app/common/types';
+import { IInvokableService } from '@/app/common/types';
 
 const DEFAULT_LEVEL = 1;
 const DEFAULT_SCORE = 0;
@@ -9,7 +9,7 @@ const DEFAULT_LIVES = 3;
 @Injectable( {
   providedIn : 'root'
 } )
-export class GameStateService extends InvokableService
+export class GameStateService implements IInvokableService
 {
 
   paused : boolean = false;
@@ -19,19 +19,16 @@ export class GameStateService extends InvokableService
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
   lives : WritableSignal<number> = signal( DEFAULT_LIVES );
 
-  private additionalLives : number = 0;
+  private extraLives : number = 0;
 
-  constructor()
-  {
-    super();
-  }
+  constructor(){}
 
   reset() : void
   {
     this.level.set( DEFAULT_LEVEL );
     this.score.set( DEFAULT_SCORE );
     this.lives.set( DEFAULT_LIVES );
-    this.additionalLives = 0;
+    this.extraLives = 0;
   }
 
   updateLives( value : number ) : void
@@ -44,13 +41,16 @@ export class GameStateService extends InvokableService
     this.score.update( current => current + +value );
 
     if( this.score() > this.hiScore() )
+    {
       this.hiScore.set( this.score() );
+      window.sessionStorage.setItem( 'hi-score', this.score().toString() );
+    }
 
     const newAdditionalLives = Math.floor( this.score() / 10000 );
-    if( newAdditionalLives > this.additionalLives )
+    if( newAdditionalLives > this.extraLives )
     {
       this.updateLives( 1 );
-      this.additionalLives = newAdditionalLives;
+      this.extraLives = newAdditionalLives;
     }
   }
 
@@ -60,4 +60,9 @@ export class GameStateService extends InvokableService
       this.level.update( current => current + 1 );
     }, _delay )
   }
+
+  invoke( _commandParts: string[] ) : string
+  {
+    return '';
+  };
 }

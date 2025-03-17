@@ -3,7 +3,7 @@ import { SlidingWindowComponent } from "@/app/common/components/sliding-window/s
 import { FormsModule } from '@angular/forms';
 import { CommandHistoryService, HistoryItem } from './services/command-history.service';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
-import { InvokableService } from '@/app/common/types';
+import { IInvokableService } from '@/app/common/types';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { CommonModule } from '@angular/common';
 
@@ -28,7 +28,7 @@ export class CommandTerminalComponent implements OnInit
     return this._commandHistory;
   }
 
-  private _registeredServices : Map<string, InvokableService> = new Map();
+  private _registeredServices : Map<string, IInvokableService> = new Map();
 
   private _gameStateService : GameStateService = inject( GameStateService );
   private _gameWorldService : GameWorldService = inject( GameWorldService );
