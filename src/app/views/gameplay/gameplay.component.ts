@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostListener, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './gameplay.component.html',
   styleUrl: './gameplay.component.css'
 })
-export class GameplayComponent implements OnInit
+export class GameplayComponent implements OnInit, OnDestroy
 {
   gameStateService = inject( GameStateService );
   gameWorldService = inject( GameWorldService );
@@ -59,6 +59,11 @@ export class GameplayComponent implements OnInit
   ngOnInit() : void
   {
     this.gameStateService.reset();
+  }
+
+  ngOnDestroy(): void
+  {
+    this.playerInputService.reset();
   }
 
   @HostListener( 'document:keydown', [ '$event' ] )

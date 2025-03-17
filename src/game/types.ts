@@ -7,6 +7,11 @@ export const Vector2 = {
   y : Types.f32
 }
 
+export type Vector2 = {
+  x : number,
+  y : number
+}
+
 export const Renderable = {
 	frame : Types.ui32,
 	origin : Vector2

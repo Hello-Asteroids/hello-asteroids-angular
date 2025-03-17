@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Game } from 'phaser';
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
@@ -37,7 +37,8 @@ export class GameBoardComponent implements OnInit
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     new Game( this._gameConfig );
   }
 }

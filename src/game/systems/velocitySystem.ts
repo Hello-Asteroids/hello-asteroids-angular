@@ -4,6 +4,7 @@ import type { IWorld } from "bitecs";
 import Velocity from "@/game/components/velocity";
 import Position from "@/game/components/position";
 import { IGameScene } from "@/game/types";
+import { clampVector } from "@/game/utilities";
 
 export default function VelocitySystem<T extends IGameScene>( scene : T )
 {
@@ -29,6 +30,14 @@ export default function VelocitySystem<T extends IGameScene>( scene : T )
       // Zero acceleration
       Velocity.acceleration.x[ entity ] = 0;
       Velocity.acceleration.y[ entity ] = 0;
+
+      // Cap Velocity
+      if( Velocity.max[ entity ] > 0 )
+      {
+        const clampedVelocity = clampVector( { x : Velocity.value.x[ entity ], y : Velocity.value.y[ entity ] }, Velocity.max[ entity ] );
+        Velocity.value.x[ entity ] = clampedVelocity.x;
+        Velocity.value.y[ entity ] = clampedVelocity.y;
+      }
 
       // Apply Velocity to Position at delta
       Position.x[ entity ] += Velocity.value.x[ entity ] * deltaTime;

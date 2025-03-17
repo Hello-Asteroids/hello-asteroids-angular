@@ -102,6 +102,8 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
 
+  Velocity.max[ entity ] = 90;
+
   TankControls.acceleration[ entity ] = 80;
   TankControls.rotationSpeed[ entity ] = 0.4;
 

@@ -11,6 +11,11 @@ export class PlayerInputService
 
   constructor() {}
 
+  reset()
+  {
+    this.inputs = {};
+  }
+
   get input() : PlayerInput
   {
     return {
