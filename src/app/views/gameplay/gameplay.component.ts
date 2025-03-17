@@ -69,7 +69,18 @@ export class GameplayComponent implements OnInit, OnDestroy
   @HostListener( 'document:keydown', [ '$event' ] )
   handleKeydownEvent( _event : KeyboardEvent ) : void
   {
-    this.playerInputService.inputs[ _event.key ] = true;
+
+    switch( _event.key )
+    {
+      case 'Escape' :
+        console.log( 'Pause?' )
+        break;
+
+      default :
+        this.playerInputService.inputs[ _event.key ] = true;
+        break;
+    }
+
   }
 
   @HostListener( 'document:keyup', [ '$event' ] )

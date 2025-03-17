@@ -107,9 +107,10 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   TankControls.acceleration[ entity ] = 80;
   TankControls.rotationSpeed[ entity ] = 0.4;
 
-  Weapon.fireRate[ entity ] = 3; // Per second
+  Weapon.rate[ entity ] = 3.5; // Per second
+  Weapon.range[ entity ] = 1250; // Per second
   Weapon.projectileCount[ entity ] = 1;
-  Weapon.spread[ entity ] = 20;
+  Weapon.projectileSpeed[ entity ] = 120;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
@@ -227,7 +228,7 @@ export const enemyPrefab = ( _world : IWorld, _opts : { position : { x : number,
   Position.x[ entity ] = _opts.position?.x || getRandomInt( 0, window.innerWidth );
   Position.y[ entity ] = _opts.position?.y || getRandomInt( 0, window.innerHeight );
 
-  Weapon.fireRate[ entity ] = 3; // Per second
+  Weapon.rate[ entity ] = 3; // Per second
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 

@@ -11,6 +11,7 @@ import PlayerInput from "@/game/components/playerInput";
 import Rotation from "@/game/components/rotation";
 import Position from "@/game/components/position";
 import Weapon from "@/game/components/weapon";
+import Duration from "@/game/components/duration";
 
   export default function ShootingSystem<T extends Scene>(  _scene : T )
   {
@@ -28,14 +29,20 @@ import Weapon from "@/game/components/weapon";
 
         if(
           PlayerInput.shoot[ entity ] === 1 &&
-          ( time.now - Weapon.lastFired[ entity ] ) >= ( 1000 / Weapon.fireRate[ entity ] )
+          ( time.now - Weapon.lastFired[ entity ] ) >= ( 1000 / Weapon.rate[ entity ] )
         )
         {
           Weapon.lastFired[ entity ] = time.now;
 
           const direction = Rotation.value[ entity ] - degToRad( 90 );
-          const spreadOffset = degToRad( Weapon.spread[ entity ] ) / Weapon.projectileCount[ entity ];
-          const spreadOrigin =  0;
+          let spreadStep = 0;
+          let spreadOrigin =  0;
+
+          if( Weapon.projectileCount[ entity ] > 1 )
+          {
+            spreadStep = Weapon.spread[ entity ] / ( Weapon.projectileCount[ entity ] - 1 );
+            spreadOrigin = -Weapon.spread[ entity ] / 2;
+          }
 
           // Spawn projectiles
           for( let p_i = 0; p_i < Weapon.projectileCount[ entity ]; p_i++ )
@@ -43,10 +50,13 @@ import Weapon from "@/game/components/weapon";
             const p_x = Position.x[ entity ] + Math.cos( direction ) * ( frameSize / 4 );
             const p_y = Position.y[ entity ] + Math.sin( direction ) * ( frameSize / 4 );
 
-            const v_x = Math.cos( direction - ( spreadOrigin + ( spreadOffset * p_i ) ) ) * 130;
-            const v_y = Math.sin( direction - ( spreadOrigin + ( spreadOffset * p_i ) ) ) * 130;
+            const spreadAngle = degToRad( spreadOrigin + p_i * spreadStep );
 
-            createPrefab( _world, projectilePrefab, { position : { x : p_x, y : p_y }, velocity : { x : v_x, y : v_y } } );
+            const v_x = Math.cos( direction + spreadAngle ) * Weapon.projectileSpeed[ entity ];
+            const v_y = Math.sin( direction + spreadAngle ) * Weapon.projectileSpeed[ entity ];
+
+            const projectileEntity = createPrefab( _world, projectilePrefab, { position : { x : p_x, y : p_y }, velocity : { x : v_x, y : v_y } } );
+            Duration.value[ projectileEntity ] = Weapon.range[ entity ];
           }
         }
       }

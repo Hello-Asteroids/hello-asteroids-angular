@@ -27,11 +27,11 @@ export default function VelocitySystem<T extends IGameScene>( scene : T )
       Velocity.value.x[ entity ] += Velocity.acceleration.x[ entity ] * deltaTime;
       Velocity.value.y[ entity ] += Velocity.acceleration.y[ entity ] * deltaTime;
 
-      // Zero acceleration
+      // Zero out acceleration
       Velocity.acceleration.x[ entity ] = 0;
       Velocity.acceleration.y[ entity ] = 0;
 
-      // Cap Velocity
+      // Cap Velocity | if 0 assume 'unset', and thus don't cap it
       if( Velocity.max[ entity ] > 0 )
       {
         const clampedVelocity = clampVector( { x : Velocity.value.x[ entity ], y : Velocity.value.y[ entity ] }, Velocity.max[ entity ] );
@@ -39,7 +39,7 @@ export default function VelocitySystem<T extends IGameScene>( scene : T )
         Velocity.value.y[ entity ] = clampedVelocity.y;
       }
 
-      // Apply Velocity to Position at delta
+      // Apply Velocity to Position at deltaTime
       Position.x[ entity ] += Velocity.value.x[ entity ] * deltaTime;
       Position.y[ entity ] += Velocity.value.y[ entity ] * deltaTime;
     }
