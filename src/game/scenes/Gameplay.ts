@@ -116,6 +116,8 @@ export default class Gameplay extends Scene implements IGameScene
   override update( _time : number, _delta : number ) : void
   {
     this._deltaTime = _delta / 100;
-    this._systems.run( this.world );
+
+    if( !this._stateService.paused )
+      this._systems.run( this.world );
   }
 }

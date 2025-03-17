@@ -8,6 +8,7 @@
   font-weight: 400;
   font-style: normal;
   text-transform: uppercase;
+  font-smooth: always;
 }
 
 @property --angle{
@@ -17,7 +18,7 @@
 }
 
 main {
-  background: linear-gradient(var(--angle), theme("colors.slate.950"), theme("colors.indigo.800"), theme("colors.sky.950"), theme("colors.slate.700"), theme("colors.fuchsia.950"));
+  background: linear-gradient(var(--angle), theme("colors.slate.950"), theme("colors.indigo.950"), theme("colors.sky.950"), theme("colors.slate.700"), theme("colors.zinc.950"));
   background-size: 400% 400%;
   animation: gradient 60s ease-in-out infinite;
 }
@@ -27,10 +28,21 @@ main {
     background-position: 0% 50%;
     --angle: -45deg;
   }
-  50% {
+  25% {
     background-position: 100% 50%;
     --angle: 45deg;
   }
+
+  50% {
+    background-position: 100% 0%;
+    --angle: 90deg;
+  }
+
+  75% {
+    background-position: 0% 0%;
+    --angle: 135deg;
+  }
+
   100% {
     background-position: 0% 50%;
     --angle: -45deg;

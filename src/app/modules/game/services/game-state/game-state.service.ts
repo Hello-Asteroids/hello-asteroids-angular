@@ -12,6 +12,8 @@ const DEFAULT_LIVES = 3;
 export class GameStateService extends InvokableService
 {
 
+  paused : boolean = false;
+
   level : WritableSignal<number> = signal( DEFAULT_LEVEL );
   score : WritableSignal<number> = signal( DEFAULT_SCORE );
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );

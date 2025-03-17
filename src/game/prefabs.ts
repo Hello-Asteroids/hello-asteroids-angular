@@ -108,7 +108,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   TankControls.rotationSpeed[ entity ] = 0.4;
 
   Weapon.rate[ entity ] = 3.5; // Per second
-  Weapon.range[ entity ] = 1250; // Per second
+  Weapon.range[ entity ] = 750; // Per second
   Weapon.projectileCount[ entity ] = 1;
   Weapon.projectileSpeed[ entity ] = 120;
 

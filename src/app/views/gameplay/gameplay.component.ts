@@ -4,10 +4,11 @@ import { GameWorldService } from '@/app/modules/game/services/game-world/game-wo
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { PlayerInputService } from '@/app/modules/game/services/player-input/player-input.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gameplay',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './gameplay.component.html',
   styleUrl: './gameplay.component.css'
 })
@@ -73,7 +74,7 @@ export class GameplayComponent implements OnInit, OnDestroy
     switch( _event.key )
     {
       case 'Escape' :
-        console.log( 'Pause?' )
+        this.gameStateService.paused = !this.gameStateService.paused;
         break;
 
       default :
