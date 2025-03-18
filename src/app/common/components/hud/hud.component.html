@@ -1,0 +1,17 @@
+<!-- HUD -->
+<div class="fixed px-5 py-8">
+  <p class="text-white text-5xl pixel">{{ this.scoreDisplay() }}</p>
+  <div class="flex">
+    @for (item of this.livesArray(); track $index) {
+      <span class="life-icon"></span>
+    }
+  </div>
+</div>
+
+<div class="fixed flex w-full justify-center p-5">
+  <p class="text-white text-3xl pixel text-center">{{ this.hiScoreDisplay() }}</p>
+</div>
+
+<div class="fixed flex w-full h-full justify-center items-center pointer-events-none" *ngIf="this.gameStateService.paused">
+  <h2 class="text-white text-3xl pixel text-center">Paused</h2>
+</div>

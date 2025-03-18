@@ -4,6 +4,13 @@
       <h1 class="text-white text-[8rem] leading-none">Hello Asteroids</h1>
       <p class="absolute text-white text-2xl bottom-[0rem] right-[-6rem] rotate-[-34deg]">in Angular</p>
     </div>
-    <a routerLink="/gameplay" skipLocationChange="true" class="text-white hover:text-gray-300 text-4xl">| Coin | Play |</a>
+
+    <a class="text-white hover:text-gray-300 text-4xl" (click)="handlePlayClicked( 'play' )" *ngIf="!showOptions">| Coin | Play |</a>
+    <div class="text-white text-4xl" *ngIf="showOptions">
+      |
+      <a (click)="handlePlayClicked( 'classic' )" class="hover:text-gray-300 mx-2">Classic</a> |
+      <a (click)="handlePlayClicked( 'roguelike' )" class="hover:text-gray-300 mx-2">Roguelike</a>
+      |
+    </div>
   </div>
 </div>

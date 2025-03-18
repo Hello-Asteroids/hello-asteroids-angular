@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 
 import { MainMenuComponent } from '@/app/views/main-menu/main-menu.component';
-import { GameplayComponent } from '@/app/views/gameplay/gameplay.component';
 import { GameoverComponent } from './views/gameover/gameover.component';
+import { ClassicGameplayComponent } from './views/classic-gameplay/classic-gameplay.component';
+import { RoguelikeGameplayComponent } from './views/roguelike-gameplay/roguelike-gameplay.component';
 
 export const routes : Routes = [
   {
@@ -10,8 +11,12 @@ export const routes : Routes = [
     component : MainMenuComponent
   },
   {
-    path : 'gameplay',
-    component : GameplayComponent
+    path : 'classic',
+    component : ClassicGameplayComponent
+  },
+  {
+    path : 'roguelike',
+    component : RoguelikeGameplayComponent
   },
   {
     path : 'gameover',

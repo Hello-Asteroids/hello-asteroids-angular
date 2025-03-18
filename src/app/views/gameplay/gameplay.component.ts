@@ -14,23 +14,20 @@ import { CommonModule } from '@angular/common';
 })
 export class GameplayComponent implements OnInit, OnDestroy
 {
+
+  private _gameType : string = 'classic';
+  get gameType() : string
+  {
+    return this._gameType;
+  }
+
   gameStateService = inject( GameStateService );
   gameWorldService = inject( GameWorldService );
   playerInputService = inject( PlayerInputService );
 
-  livesArray = computed( () => {
-    return Array<undefined>( this.gameStateService.lives() );
-  } )
+  constructor( private _router: Router ){
 
-  scoreDisplay = computed( () => {
-    return this.gameStateService.score().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
-  } )
-
-  hiScoreDisplay = computed( () => {
-    return this.gameStateService.hiScore().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
-  } )
-
-  constructor( private _router: Router  ){
+    this._gameType = this._router.getCurrentNavigation()?.extras.queryParams?.[ 'type' ];
 
     // Lives Effect
     effect( () => {
