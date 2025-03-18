@@ -25,6 +25,7 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
 
   ngOnInit() : void
   {
+    this.gameStateService.type = 'roguelike';
     const currentLevel = this.gameStateService.level();
 
     if( currentLevel === 1 )

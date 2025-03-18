@@ -105,16 +105,6 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
 
   Velocity.max[ entity ] = _opts.playerStats.maxSpeed;
 
-  TankControls.acceleration[ entity ] = _opts.playerStats.acceleration;
-  TankControls.rotationSpeed[ entity ] = _opts.playerStats.rotationSpeed;
-
-  Weapon.rate[ entity ] = _opts.playerStats.fireRate; // Per second
-  Weapon.range[ entity ] = _opts.playerStats.range; // Per second
-  Weapon.projectileCount[ entity ] = _opts.playerStats.projectileCount;
-  Weapon.projectileSpeed[ entity ] = _opts.playerStats.projectileSpeed;
-  Weapon.deviation[ entity ] = _opts.playerStats.deviation;
-  Weapon.spread[ entity ] = _opts.playerStats.spread;
-
   WrapScreen.offset[ entity ] = frameSize / 2;
 
   RadialCollider.radius[ entity ] = 16;

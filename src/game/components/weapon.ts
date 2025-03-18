@@ -1,4 +1,5 @@
 import { defineComponent, Types } from "bitecs";
+import componentMap from ".";
 
 const Weapon = defineComponent( {
   lastFired : Types.f32,
@@ -10,5 +11,7 @@ const Weapon = defineComponent( {
   spread : Types.ui16,
   deviation : Types.f32
 } );
+
+componentMap['Weapon'] = Weapon;
 
 export default Weapon;

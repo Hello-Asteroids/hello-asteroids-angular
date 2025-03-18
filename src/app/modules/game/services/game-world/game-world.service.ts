@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Component, createWorld, defineQuery, getAllEntities, IWorld, removeEntity } from 'bitecs';
 
-import { IInvokableService } from '@/app/common/types';
+import { IInvokableService, PlayerStats } from '@/app/common/types';
 
 import Player from '@/game/components/player';
 import Asteroid from '@/game/components/asteroid';
+import Weapon from '@/game/components/weapon';
+import Velocity from '@/game/components/velocity';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { asteroidConfigs } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
+import TankControls from '@/game/components/tankControls';
 
 @Injectable({
   providedIn: 'root'
@@ -85,6 +88,27 @@ export class GameWorldService implements IInvokableService
   spawnPlayer() : void
   {
     createPrefab( this._world, playerSpawnerPrefab );
+  }
+
+  refreshPlayer( _stats : PlayerStats ) : void
+  {
+    const query = defineQuery( [ Player, Weapon, Velocity ] );
+    const entities = query( this._world );
+
+    for( let i = 0; i < entities.length; i++ )
+    {
+      const entity = entities[i];
+
+      TankControls.acceleration[ entity ] = _stats.acceleration;
+      TankControls.rotationSpeed[ entity ] = _stats.rotationSpeed;
+
+      Weapon.rate[ entity ] = _stats.fireRate; // Per second
+      Weapon.range[ entity ] = _stats.range; // Per second
+      Weapon.projectileCount[ entity ] = _stats.projectileCount;
+      Weapon.projectileSpeed[ entity ] = _stats.projectileSpeed;
+      Weapon.deviation[ entity ] = _stats.deviation;
+      Weapon.spread[ entity ] = _stats.spread;
+    }
   }
 
   // Getters

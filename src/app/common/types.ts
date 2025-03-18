@@ -24,3 +24,18 @@ export type AsteroidStats = {
   health : number,
   maxSpeed : number
 }
+
+export type Factor = {
+  name : string,
+  modifiers : Array<Modifier>
+}
+
+export type Modifier = {
+  description : string,
+  property : string,
+  value : number,
+  min? : number,
+  operation : string,
+  prefix? : string,
+  sufix? : string
+}

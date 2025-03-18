@@ -25,6 +25,7 @@ export class ClassicGameplayComponent extends GameplayComponent implements OnIni
 
   ngOnInit() : void
   {
+    this.gameStateService.type = 'classic';
     this.gameStateService.playerStats = DEFAULT_PLAYER_STATS.classic;
     this.gameStateService.reset();
   }

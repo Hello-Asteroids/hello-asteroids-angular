@@ -1,6 +1,6 @@
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gameover',
@@ -12,5 +12,10 @@ export class GameoverComponent
 {
   gameStateService : GameStateService = inject( GameStateService );
 
-  constructor(){}
+  constructor( private _router : Router, private _gameStateService : GameStateService ){}
+
+  replay()
+  {
+    this._router.navigate( [ this._gameStateService.type ], { skipLocationChange : true } );
+  }
 }

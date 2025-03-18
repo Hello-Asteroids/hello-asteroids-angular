@@ -9,6 +9,8 @@ import { DEFAULT_LEVEL, DEFAULT_LIVES, DEFAULT_PLAYER_STATS, DEFAULT_SCORE } fro
 export class GameStateService implements IInvokableService
 {
 
+  type : string = "classic";
+
   paused : boolean = false;
 
   level : WritableSignal<number> = signal( DEFAULT_LEVEL );

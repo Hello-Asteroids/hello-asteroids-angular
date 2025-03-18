@@ -4,7 +4,7 @@
       <h2 class="text-[6rem] leading-none">Game Over!</h2>
     </div>
     <p>You Scored {{ this.gameStateService.score() }}</p>
-    <a routerLink="/gameplay" skipLocationChange="true" class="hover:text-gray-300 text-4xl">| Play Again? |</a>
+    <a (click)="replay()" class="hover:text-gray-300 text-4xl">| Play Again? |</a>
     <a routerLink="/" skipLocationChange="true" class="hover:text-gray-300 text-4xl">| Quit |</a>
   </div>
 </div>
