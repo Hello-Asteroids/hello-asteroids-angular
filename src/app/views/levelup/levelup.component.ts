@@ -1,10 +1,11 @@
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { BoonCardComponent } from "./components/boon-card/boon-card.component";
 
 @Component({
   selector: 'app-levelup',
-  imports: [],
+  imports: [BoonCardComponent],
   templateUrl: './levelup.component.html',
   styleUrl: './levelup.component.css'
 })

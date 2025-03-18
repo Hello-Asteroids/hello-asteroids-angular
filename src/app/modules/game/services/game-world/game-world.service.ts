@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { createWorld, defineQuery, IWorld, removeEntity } from 'bitecs';
+import { Component, createWorld, defineQuery, getAllEntities, IWorld, removeEntity } from 'bitecs';
 
 import { IInvokableService } from '@/app/common/types';
 
+import Player from '@/game/components/player';
 import Asteroid from '@/game/components/asteroid';
-import { asteroidPrefab, enemyPrefab, playerSpawnerPrefab } from '@/game/prefabs';
+import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { asteroidConfigs } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
-import Player from '@/game/components/player';
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +22,33 @@ export class GameWorldService implements IInvokableService
     this._world = createWorld();
   }
 
-  destroyAsteroids() : void
+  clear() : void
   {
-    const asteroidQuery = defineQuery( [ Asteroid ] );
-
-    const entities = asteroidQuery( this._world );
+    const entities = getAllEntities( this._world );
     for( let i = 0; i < entities.length; i++ )
     {
       removeEntity(  this._world, entities[i] );
     }
   }
 
-  loadLevel( _level : number ) : void
+  destroyQuery( _queryComponents : Array<Component> ) : void
   {
-    this.destroyAsteroids();
+    const query = defineQuery( _queryComponents );
+
+    const entities = query( this._world );
+    for( let i = 0; i < entities.length; i++ )
+    {
+      removeEntity(  this._world, entities[i] );
+    }
+  }
+
+  loadLevel( _level : number, _clearWorld? : boolean ) : void
+  {
+
+    if( _clearWorld )
+      this.clear();
+
+    this.destroyQuery( [ Asteroid ] );
 
     let i;
 

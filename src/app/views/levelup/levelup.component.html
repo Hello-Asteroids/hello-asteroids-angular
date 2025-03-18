@@ -1,20 +1,14 @@
 <div class="fixed w-full h-full flex pixel text-white justify-center">
   <div class="w-[40vw] h-full flex flex-col justify-center items-center">
-    <h1 class="text-4xl mb-6">Level up!</h1>
+    <h1 class="text-5xl mb-6">Level up!</h1>
 
     <div class="container h-[250px] flex justify-between">
 
-      <div class="grow-1 mx-6 h-[100%] bg-white rounded-2xl" (click)="this.handleBoonClick()">
+      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
 
-      </div>
+      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
 
-      <div class="grow-1 mx-6 h-[100%] bg-white rounded-2xl" (click)="this.handleBoonClick()">
-
-      </div>
-
-      <div class="grow-1 mx-6 h-[100%] bg-white rounded-2xl" (click)="this.handleBoonClick()">
-
-      </div>
+      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
     </div>
   </div>
 </div>

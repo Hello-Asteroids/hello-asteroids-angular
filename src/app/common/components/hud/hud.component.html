@@ -8,10 +8,11 @@
   </div>
 </div>
 
-<div class="fixed flex w-full justify-center p-5">
+<div class="fixed flex flex-col w-full justify-center p-5">
   <p class="text-white text-3xl pixel text-center">{{ this.hiScoreDisplay() }}</p>
 </div>
 
-<div class="fixed flex w-full h-full justify-center items-center pointer-events-none" *ngIf="this.gameStateService.paused">
-  <h2 class="text-white text-3xl pixel text-center">Paused</h2>
+<div class="fixed flex flex-col w-full h-full justify-center items-center text-white pixel text-center bg-slate-950/50" *ngIf="this.gameStateService.paused">
+  <h2 class="text-5xl mb-4">Paused</h2>
+  <a class="text-4xl cursor-pointer" (click)="this.handleQuitClick()" role="button">| Quit |</a>
 </div>

@@ -1,3 +1,4 @@
+import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -13,10 +14,11 @@ export class MainMenuComponent implements OnInit
 {
   showOptions : boolean = false;
 
-  constructor( private _router : Router, private _gameWorldService : GameWorldService ){}
+  constructor( private _router : Router, private _gameStateService : GameStateService, private _gameWorldService : GameWorldService ){}
 
   ngOnInit(): void {
-    this._gameWorldService.loadLevel( 24 );
+    this._gameStateService.paused = false;
+    this._gameWorldService.loadLevel( 24, true );
   }
 
   handlePlayClicked( _type : string ) : void

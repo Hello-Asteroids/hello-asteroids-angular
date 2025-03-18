@@ -1,6 +1,7 @@
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hud',
@@ -9,6 +10,8 @@ import { Component, computed, inject } from '@angular/core';
   styleUrl: './hud.component.css'
 })
 export class HudComponent {
+
+  constructor( private _router : Router ){}
 
   gameStateService = inject( GameStateService );
 
@@ -23,4 +26,9 @@ export class HudComponent {
   hiScoreDisplay = computed( () => {
     return this.gameStateService.hiScore().toLocaleString( 'en-US', { minimumIntegerDigits : 2 } );
   } )
+
+  handleQuitClick() : void
+  {
+    this._router.navigate( [ '/' ], { skipLocationChange : true } );
+  }
 }

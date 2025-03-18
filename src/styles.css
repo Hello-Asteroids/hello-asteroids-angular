@@ -21,6 +21,7 @@ main {
   background: linear-gradient(var(--angle), theme("colors.slate.950"), theme("colors.indigo.950"), theme("colors.sky.950"), theme("colors.slate.700"), theme("colors.zinc.950"));
   background-size: 400% 400%;
   animation: gradient 60s ease-in-out infinite;
+  animation-direction: alternate;
 }
 
 @keyframes gradient {
@@ -30,17 +31,17 @@ main {
   }
   25% {
     background-position: 100% 50%;
-    --angle: 45deg;
+    --angle: 27deg;
   }
 
   50% {
     background-position: 100% 0%;
-    --angle: 90deg;
+    --angle: 99deg;
   }
 
   75% {
     background-position: 0% 0%;
-    --angle: 135deg;
+    --angle: 171deg;
   }
 
   100% {
