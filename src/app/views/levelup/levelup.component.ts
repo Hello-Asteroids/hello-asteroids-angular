@@ -2,6 +2,7 @@ import { GameStateService } from '@/app/modules/game/services/game-state/game-st
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoonCardComponent } from "./components/boon-card/boon-card.component";
+import { Banes, Boons, LevelUpCardConfig } from '@/app/common/constants';
 
 @Component({
   selector: 'app-levelup',
@@ -16,14 +17,34 @@ export class LevelupComponent
 
   gameStateService = inject( GameStateService );
 
+  cards : Array<LevelUpCardConfig>;
+
   constructor( private _router : Router )
   {
     this.currentLevel = this._router.getCurrentNavigation()?.extras.state?.[ 'level' ];
+
+    this.cards = [
+      {
+        boon : Boons[ Math.round( Math.random() * (Boons.length - 1) ) ],
+        bane : Banes[ Math.round( Math.random() *( Banes.length - 1) ) ]
+      },
+      {
+        boon : Boons[ Math.round( Math.random() * (Boons.length - 1) ) ],
+        bane : Banes[ Math.round( Math.random() *( Banes.length - 1) ) ]
+      },
+      {
+        boon : Boons[ Math.round( Math.random() * (Boons.length - 1) ) ],
+        bane : Banes[ Math.round( Math.random() *( Banes.length - 1) ) ]
+      }
+    ]
+    console.log(this.cards);
   }
 
-  handleBoonClick() : void
+  handleCardClick( _selectedCard : number ) : void
   {
-    // DO Boon application here, inject gameworldservice and such
+    const card = this.cards[ _selectedCard ];
+
+
 
     this.gameStateService.playerStats.level = this.currentLevel;
 

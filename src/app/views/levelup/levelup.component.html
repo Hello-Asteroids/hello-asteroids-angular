@@ -1,14 +1,32 @@
 <div class="fixed w-full h-full flex pixel text-white justify-center">
-  <div class="w-[40vw] h-full flex flex-col justify-center items-center">
+  <div class="w-[60vw] h-full flex flex-col justify-center items-center">
     <h1 class="text-5xl mb-6">Level up!</h1>
 
-    <div class="container h-[250px] flex justify-between">
+    <div class="container flex justify-between">
 
-      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
-
-      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
-
-      <app-boon-card class="grow-1 mx-4" (click)="handleBoonClick()"/>
+      @for( item of this.cards; track $index )
+      {
+        <app-boon-card class="grow-1 mx-4" (click)="handleCardClick( $index )">
+          <div slot="boons">
+            <p class="text-center border-b-green-600 border-b-2">{{ item.boon.name }}</p>
+            <div class="my-2">
+              @for( boon of item.boon.modifiers; track boon.description )
+              {
+                <p>{{ boon.description }}: <span class="text-green-600"> {{boon.prefix}}{{boon.value}}{{boon.sufix}} </span></p>
+              }
+            </div>
+          </div>
+          <div slot="banes">
+            <p class="text-center border-b-red-600 border-b-2">{{ item.bane.name }}</p>
+            <div class="my-2">
+              @for( bane of item.bane.modifiers; track bane.description )
+              {
+                <p>{{ bane.description }}: <span class="text-green-600"> {{bane.prefix}}{{bane.value}}{{bane.sufix}} </span></p>
+              }
+            </div>
+          </div>
+        </app-boon-card>
+      }
     </div>
   </div>
 </div>

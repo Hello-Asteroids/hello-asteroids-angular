@@ -9,7 +9,10 @@
     <div class="text-white text-4xl" *ngIf="showOptions">
       |
       <a (click)="handlePlayClicked( 'classic' )" class="hover:text-gray-300 mx-2">Classic</a> |
-      <a (click)="handlePlayClicked( 'roguelike' )" class="hover:text-gray-300 mx-2">Roguelike</a>
+      <a (click)="handlePlayClicked( 'roguelike' )" class="relative hover:text-gray-300 mx-2">
+        Roguelike
+        <span class="absolute text-sm rotate-[14deg] right-[-0.5rem] top-[-0.5rem]">(NEW)</span>
+      </a>
       |
     </div>
   </div>
