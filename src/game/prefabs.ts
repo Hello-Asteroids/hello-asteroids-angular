@@ -111,7 +111,7 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Weapon.range[ entity ] = 750; // Per second
   Weapon.projectileCount[ entity ] = 1;
   Weapon.projectileSpeed[ entity ] = 120;
-  Weapon.deviation[ entity ] = 0;
+  Weapon.deviation[ entity ] = 4;
   Weapon.spread[ entity ] = 0;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
