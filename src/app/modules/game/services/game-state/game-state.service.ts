@@ -1,10 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
-import { IInvokableService } from '@/app/common/types';
-
-const DEFAULT_LEVEL = 1;
-const DEFAULT_SCORE = 0;
-const DEFAULT_LIVES = 3;
+import { IInvokableService, PlayerStats } from '@/app/common/types';
+import { DEFAULT_LEVEL, DEFAULT_LIVES, DEFAULT_PLAYER_STATS, DEFAULT_SCORE } from '@/app/common/constants';
 
 @Injectable( {
   providedIn : 'root'
@@ -18,6 +15,8 @@ export class GameStateService implements IInvokableService
   score : WritableSignal<number> = signal( DEFAULT_SCORE );
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
   lives : WritableSignal<number> = signal( DEFAULT_LIVES );
+
+  playerStats : PlayerStats = DEFAULT_PLAYER_STATS.classic;
 
   private extraLives : number = 0;
 

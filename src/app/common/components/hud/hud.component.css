@@ -1,0 +1,11 @@
+.life-icon
+{
+  --icon-size: 64px;
+  background-image: url( '/assets/images/spritesheets/Asteroids_SpriteSheet_2.1.0.png' );
+  background-position: -8px 0px;
+  /* background-size: 400%; */
+  width: calc( var( --icon-size ) - 16px );
+  height: var( --icon-size );
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}

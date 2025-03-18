@@ -95,7 +95,7 @@ export default class Gameplay extends Scene implements IGameScene
     this._systems.add( AnimatedSpriteSystem( this ) );
 
     // Game Logic Systems
-    this._systems.add( PlayerSpawnSystem() );
+    this._systems.add( PlayerSpawnSystem( this ) );
     this._systems.add( PlayerInputSystem( this ) );
     this._systems.add( TankControlsSystem( this ) );
     this._systems.add( ShootingSystem( this ) );

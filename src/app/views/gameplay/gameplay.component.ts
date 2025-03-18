@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './gameplay.component.html',
   styleUrl: './gameplay.component.css'
 })
-export class GameplayComponent implements OnInit, OnDestroy
+export class GameplayComponent implements OnDestroy
 {
 
   private _gameType : string = 'classic';
@@ -45,18 +45,6 @@ export class GameplayComponent implements OnInit, OnDestroy
         }
       }
     } );
-
-    // Level Effect
-    effect( () => {
-      const currentLevel = this.gameStateService.level();
-
-      this.gameWorldService.loadLevel( currentLevel );
-    } )
-  }
-
-  ngOnInit() : void
-  {
-    this.gameStateService.reset();
   }
 
   ngOnDestroy(): void

@@ -11,13 +11,15 @@ import Position from "@/game/components/position";
 import Duration from "@/game/components/duration";
 import Collision from "@/game/components/collision";
 
-export default function playerSpawnSystem()
+export default function playerSpawnSystem<T extends IGameScene>( _scene : T )
 {
 
   const spawnerQuery = defineQuery( [ PlayerSpawner, Position, Duration ] );
   const spawnerExitQuery = exitQuery( spawnerQuery );
 
   return defineSystem( ( _world : IWorld ) => {
+
+    const { stateService } = _scene;
 
     let i;
 
@@ -31,7 +33,7 @@ export default function playerSpawnSystem()
       {
         const position = { x : Position.x[ entity ], y : Position.y[ entity ] };
 
-        createPrefab( _world, playerPrefab, { position } );
+        createPrefab( _world, playerPrefab, { position, playerStats : stateService.playerStats } );
       }
       else
       {

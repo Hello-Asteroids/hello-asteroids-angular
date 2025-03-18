@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { GameplayComponent } from '../gameplay/gameplay.component';
 import { Router } from '@angular/router';
 import { HudComponent } from "../../common/components/hud/hud.component";
+import { DEFAULT_PLAYER_STATS } from '@/app/common/constants';
 
 @Component({
   selector: 'app-roguelike-gameplay',
@@ -13,5 +14,25 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
   constructor( _router : Router )
   {
     super( _router );
+
+    // Level Effect
+    effect( () => {
+      const currentLevel = this.gameStateService.level();
+      if( currentLevel !== this.gameStateService.playerStats.level )
+        _router.navigate( [ '/levelup' ], { state : { level : currentLevel }, skipLocationChange : true } );
+    } )
+  }
+
+  ngOnInit() : void
+  {
+    const currentLevel = this.gameStateService.level();
+
+    if( currentLevel === 1 )
+    {
+      this.gameStateService.reset();
+      this.gameStateService.playerStats = DEFAULT_PLAYER_STATS.roguelike;
+    }
+
+    this.gameWorldService.loadLevel( currentLevel );
   }
 }
