@@ -10,7 +10,7 @@ export const DEFAULT_PLAYER_STATS = {
 
 
     maxSpeed : 90,
-    acceleration : 80,
+    acceleration : 60,
     rotationSpeed : 0.4,
 
     fireRate : 3.5,
@@ -26,7 +26,7 @@ export const DEFAULT_PLAYER_STATS = {
 
 
     maxSpeed : 90,
-    acceleration : 80,
+    acceleration : 60,
     rotationSpeed : 0.4,
 
     fireRate : 3.5,

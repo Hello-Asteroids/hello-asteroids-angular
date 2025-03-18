@@ -37,6 +37,7 @@ export class GameplayComponent implements OnDestroy
       {
         if( currentLives > 0 )
         {
+          this.playerInputService.reset();
           this.gameWorldService.spawnPlayer();
         }
         else
