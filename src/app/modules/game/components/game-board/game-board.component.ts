@@ -35,7 +35,7 @@ export class GameBoardComponent implements OnInit
         new Gameplay( this._gameStateService, this._gameWorldService, _playerInputService )
       ],
       fps : {
-        limit : 60
+        limit : 144
       }
     }
   }

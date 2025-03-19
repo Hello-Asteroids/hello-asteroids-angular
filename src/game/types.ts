@@ -2,6 +2,11 @@ import { GameStateService } from "@/app/modules/game/services/game-state/game-st
 import { GameWorldService } from "@/app/modules/game/services/game-world/game-world.service";
 import { IWorld, pipe, System, Types } from "bitecs";
 
+export enum GAME_TYPES {
+  CLASSIC = 'classic',
+  ROGUELIKE = 'roguelike'
+}
+
 export type Vector2 = {
   x : number,
   y : number
@@ -64,6 +69,8 @@ export class SystemPipeline
 }
 
 export type GameConfig = {
+
+  id : GAME_TYPES,
 
   startingLives : number,
   rewardLifeThreshold : number,

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './gameplay.component.html',
   styleUrl: './gameplay.component.css'
 })
-export class GameplayComponent implements OnDestroy
+export class GameplayComponent implements OnInit, OnDestroy
 {
 
   private _gameType : string = 'classic';
@@ -31,19 +31,18 @@ export class GameplayComponent implements OnDestroy
 
     // Lives Effect
     effect( () => {
-      const currentLives = this.gameStateService.lives();
-      if( this.gameWorldService.playerCount === 0 )
-      {
-        if( currentLives === 0 )
-        {
-          this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
-        }
-        else {
-          this.gameWorldService.spawnPlayer();
-        }
-
-      }
+      this.handleLivesUpdate( this.gameStateService.lives() );
     } );
+
+     // Level Effect
+     effect( () => {
+      this.handleLevelUpdate( this.gameStateService.level() );
+    } )
+  }
+
+  ngOnInit() : void
+  {
+    this.gameStateService.reset();
   }
 
   ngOnDestroy() : void
@@ -51,10 +50,30 @@ export class GameplayComponent implements OnDestroy
     this.playerInputService.reset();
   }
 
+  // Handlers
+  handleLevelUpdate( _newValue : number ) : void
+  {
+    this.gameWorldService.loadLevel( _newValue );
+  }
+
+  handleLivesUpdate( _newValue : number ) : void
+  {
+    if( this.gameWorldService.playerCount === 0 )
+    {
+      if( _newValue === 0 )
+      {
+        this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
+      }
+      else {
+        this.gameWorldService.spawnPlayer();
+      }
+
+    }
+  }
+
   @HostListener( 'document:keydown', [ '$event' ] )
   handleKeydownEvent( _event : KeyboardEvent ) : void
   {
-
     switch( _event.key )
     {
       case 'Escape' :
@@ -65,7 +84,6 @@ export class GameplayComponent implements OnDestroy
         this.playerInputService.inputs[ _event.key ] = true;
         break;
     }
-
   }
 
   @HostListener( 'document:keyup', [ '$event' ] )

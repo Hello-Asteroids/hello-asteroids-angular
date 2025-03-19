@@ -33,7 +33,7 @@ export default function playerSpawnSystem<T extends IGameScene>( _scene : T )
       {
         const position = { x : Position.x[ entity ], y : Position.y[ entity ] };
 
-        createPrefab( _world, playerPrefab, { position, playerStats : stateService.playerStats } );
+        createPrefab( _world, playerPrefab, { position, playerStats : stateService.gameConfig.playerStats } );
       }
       else
       {

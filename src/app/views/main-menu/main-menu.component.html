@@ -5,15 +5,22 @@
       <p class="absolute text-white text-2xl bottom-[0rem] right-[-6rem] rotate-[-34deg]">in Angular</p>
     </div>
 
-    <a class="text-white hover:text-gray-300 text-4xl" (click)="handlePlayClicked( 'play' )" *ngIf="!showOptions">| Coin | Play |</a>
-    <div class="text-white text-4xl" *ngIf="showOptions">
-      |
-      <a (click)="handlePlayClicked( 'classic' )" class="hover:text-gray-300 mx-2">Classic</a> |
-      <a (click)="handlePlayClicked( 'roguelike' )" class="relative hover:text-gray-300 mx-2">
-        Roguelike
-        <span class="absolute text-sm rotate-[14deg] right-[-0.5rem] top-[-0.5rem]">(NEW)</span>
-      </a>
-      |
+    <a class="text-white hover:text-gray-300 text-4xl" (click)="handlePlayClicked( 'play' )" *ngIf="!showOptions">
+      <span>|</span>
+      <span class="mx-6">Coin</span>
+      <span>|</span>
+      <span class="mx-6">Play</span>
+      <span>|</span>
+    </a>
+    <div class="text-white text-center" *ngIf="showOptions">
+      <h3 class="text-5xl">Mode</h3>
+      <div class="text-4xl">
+        <span>|</span>
+        <a (click)="handlePlayClicked( gameTypes.CLASSIC)" class="hover:text-gray-300 mx-6">Classic</a>
+        <span>|</span>
+        <a (click)="handlePlayClicked( gameTypes.ROGUELIKE)" class="relative hover:text-gray-300 mx-6">Roguelike<span class="absolute text-sm rotate-[14deg] right-[-1.5rem] top-[-0.5rem]">(NEW)</span></a>
+        <span>|</span>
+      </div>
     </div>
   </div>
 </div>

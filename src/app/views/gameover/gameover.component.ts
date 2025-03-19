@@ -20,6 +20,6 @@ export class GameoverComponent
   replay()
   {
     this._gameStateService.reset();
-    this._router.navigate( [ this._gameStateService.type ], { skipLocationChange : true } );
+    this._router.navigate( [ this._gameStateService.gameConfig.id ], { skipLocationChange : true } );
   }
 }

@@ -1,4 +1,4 @@
-import { AnimationConfig, Factor, GameConfig } from "./types";
+import { AnimationConfig, Factor, GAME_TYPES, GameConfig } from "./types";
 
 export const frameSize : number = 64;
 
@@ -62,6 +62,7 @@ export const spriteAnimations : Array<AnimationConfig> = [
 
 export const GameConfigs : { classic : GameConfig, roguelike : GameConfig } = {
   classic : {
+    id : GAME_TYPES.CLASSIC,
     startingLives : 3,
     rewardLifeThreshold : 10000,
 
@@ -87,6 +88,8 @@ export const GameConfigs : { classic : GameConfig, roguelike : GameConfig } = {
   },
 
   roguelike : {
+    id : GAME_TYPES.ROGUELIKE,
+
     startingLives : 1,
     rewardLifeThreshold : 10000,
 

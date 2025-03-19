@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class PlayerInputService
 {
+  enabled : boolean = false;
 
   inputs : { [ key : string ] : boolean } = {};
 

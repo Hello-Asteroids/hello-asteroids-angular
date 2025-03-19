@@ -67,8 +67,11 @@ export class LevelupComponent
 
   handleCardClick( _selectedCard : number ) : void
   {
+
+    const { gameConfig } = this.gameStateService;
+
     this.cards[ _selectedCard ].flatMap( factor => factor.modifiers ).forEach( ( mod : Modifier ) => {
-      const currentValue = this.gameStateService.playerStats[mod.property as keyof PlayerStats];
+      const currentValue = gameConfig.playerStats[mod.property as keyof PlayerStats];
 
       let newValue : number = currentValue + mod.value;
 
@@ -86,10 +89,10 @@ export class LevelupComponent
         newValue = Math.max( mod.min, newValue );
       }
 
-      this.gameStateService.playerStats[ mod.property as keyof PlayerStats ] = newValue;
+      gameConfig.playerStats[ mod.property as keyof PlayerStats ] = newValue;
     } );
 
-    this.gameStateService.playerStats.level = this.currentLevel;
+    gameConfig.playerStats.level = this.currentLevel;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );
   }

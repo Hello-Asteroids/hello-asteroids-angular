@@ -13,8 +13,6 @@ export class GameStateService implements IInvokableService
 
   gameConfig : GameConfig = GameConfigs.classic;
 
-  type : string = "classic";
-
   paused : boolean = false;
 
   level : WritableSignal<number> = signal( 1 );
@@ -22,7 +20,7 @@ export class GameStateService implements IInvokableService
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
   lives : WritableSignal<number> = signal( this.gameConfig.startingLives );
 
-  private extraLives : number = 0;
+  private additionalLives : number = 0;
 
   constructor(){}
 
@@ -31,7 +29,7 @@ export class GameStateService implements IInvokableService
     this.level.set( 1 );
     this.score.set( 0 );
     this.lives.set( this.gameConfig.startingLives );
-    this.extraLives = 0;
+    this.additionalLives = 0;
   }
 
   updateLives( value : number ) : void
@@ -50,10 +48,10 @@ export class GameStateService implements IInvokableService
     }
 
     const newAdditionalLives = Math.floor( this.score() / this.gameConfig.rewardLifeThreshold );
-    if( newAdditionalLives > this.extraLives )
+    if( newAdditionalLives > this.additionalLives )
     {
       this.updateLives( 1 );
-      this.extraLives = newAdditionalLives;
+      this.additionalLives = newAdditionalLives;
     }
   }
 
