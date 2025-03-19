@@ -1,24 +1,26 @@
 import { Injectable, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
+
 import { IInvokableService } from '@/app/common/types';
-import { PlayerStats } from '@/game/types';
-import { DEFAULT_LEVEL, DEFAULT_LIVES, DEFAULT_PLAYER_STATS, DEFAULT_SCORE } from '@/game/constants';
+import { GameConfigs } from '@/game/constants';
+import type { GameConfig } from '@/game/types';
 
 @Injectable( {
   providedIn : 'root'
 } )
 export class GameStateService implements IInvokableService
 {
+
+  gameConfig : GameConfig = GameConfigs.classic;
+
   type : string = "classic";
 
   paused : boolean = false;
 
-  level : WritableSignal<number> = signal( DEFAULT_LEVEL );
-  score : WritableSignal<number> = signal( DEFAULT_SCORE );
+  level : WritableSignal<number> = signal( 1 );
+  score : WritableSignal<number> = signal( 0 );
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
-  lives : WritableSignal<number> = signal( DEFAULT_LIVES );
-
-  playerStats : PlayerStats = DEFAULT_PLAYER_STATS.classic;
+  lives : WritableSignal<number> = signal( this.gameConfig.startingLives );
 
   private extraLives : number = 0;
 
@@ -26,9 +28,9 @@ export class GameStateService implements IInvokableService
 
   reset() : void
   {
-    this.level.set( DEFAULT_LEVEL );
-    this.score.set( DEFAULT_SCORE );
-    this.lives.set( DEFAULT_LIVES );
+    this.level.set( 1 );
+    this.score.set( 0 );
+    this.lives.set( this.gameConfig.startingLives );
     this.extraLives = 0;
   }
 
@@ -47,7 +49,7 @@ export class GameStateService implements IInvokableService
       window.sessionStorage.setItem( 'hi-score', this.score().toString() );
     }
 
-    const newAdditionalLives = Math.floor( this.score() / 10000 );
+    const newAdditionalLives = Math.floor( this.score() / this.gameConfig.rewardLifeThreshold );
     if( newAdditionalLives > this.extraLives )
     {
       this.updateLives( 1 );

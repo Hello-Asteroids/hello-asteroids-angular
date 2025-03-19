@@ -1,11 +1,11 @@
-import { Factor } from "./types";
+import { AnimationConfig, Factor, GameConfig } from "./types";
 
 export const frameSize : number = 64;
 
 export const asteroidMaxSpeed = 25;
 export const debrisMaxSpeed = 5;
 
-export const asteroidConfigs = [
+export const ASTEROID_SPRITE_CONFIGS = [
   { tier : 0, points : 100, offset : 8, radius : frameSize / 8 },
   { tier : 1, points : 50, offset : 4, radius : frameSize / 4 },
   { tier : 2, points : 20, offset : 0, radius : frameSize / 2 }
@@ -18,7 +18,7 @@ export enum ANIMATIONS {
   ENEMY_THRUST = 3
 }
 
-export const spriteAnimations = [
+export const spriteAnimations : Array<AnimationConfig> = [
   {
     key : 'player_idle',
     frames : {
@@ -60,41 +60,55 @@ export const spriteAnimations = [
   }
 ]
 
-export const DEFAULT_LEVEL = 1;
-export const DEFAULT_SCORE = 0;
-export const DEFAULT_LIVES = 3;
-
-export const DEFAULT_PLAYER_STATS = {
+export const GameConfigs : { classic : GameConfig, roguelike : GameConfig } = {
   classic : {
-    level : 1,
+    startingLives : 3,
+    rewardLifeThreshold : 10000,
 
+    asteroidStats : {
+      health : 1,
+      maxSpeed : 25
+    },
 
-    maxSpeed : 90,
-    acceleration : 60,
-    rotationSpeed : 0.4,
+    playerStats : {
+      level : 1,
 
-    fireRate : 3.5,
-    range : 750,
-    projectileCount : 1,
-    projectileSpeed : 120,
-    deviation : 0,
-    spread : 0
+      maxSpeed : 90,
+      acceleration : 60,
+      rotationSpeed : 0.4,
+
+      fireRate : 3.5,
+      range : 750,
+      projectileCount : 1,
+      projectileSpeed : 120,
+      deviation : 0,
+      spread : 0
+    }
   },
 
   roguelike : {
-    level : 1,
+    startingLives : 1,
+    rewardLifeThreshold : 10000,
 
+    asteroidStats : {
+      health : 1,
+      maxSpeed : 25
+    },
 
-    maxSpeed : 90,
-    acceleration : 60,
-    rotationSpeed : 0.4,
+    playerStats : {
+      level : 1,
 
-    fireRate : 3.5,
-    range : 750,
-    projectileCount : 100,
-    projectileSpeed : 120,
-    deviation : 100,
-    spread : 0
+      maxSpeed : 90,
+      acceleration : 60,
+      rotationSpeed : 0.4,
+
+      fireRate : 3.5,
+      range : 750,
+      projectileCount : 1,
+      projectileSpeed : 120,
+      deviation : 2,
+      spread : 0
+    }
   }
 }
 

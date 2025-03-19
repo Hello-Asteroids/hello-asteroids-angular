@@ -2,24 +2,35 @@ import { GameStateService } from "@/app/modules/game/services/game-state/game-st
 import { GameWorldService } from "@/app/modules/game/services/game-world/game-world.service";
 import { IWorld, pipe, System, Types } from "bitecs";
 
-export const Vector2 = {
-  x : Types.f32,
-  y : Types.f32
-}
-
 export type Vector2 = {
   x : number,
   y : number
 }
 
-export const Renderable = {
-	frame : Types.ui32,
-	origin : Vector2
-}
-
 export type PlayerInput = {
   movement : { x : number, y : number },
   shoot : number
+}
+
+export type AnimationConfig = {
+  key : string,
+  frames : {
+    start : number,
+    end : number
+  },
+  frameRate : number,
+  repeat : number
+}
+
+// ECS Vector2 - needs to be a variable, not a type
+export const Vector2 = {
+  x : Types.f32,
+  y : Types.f32
+}
+
+export const Renderable = {
+	frame : Types.ui32,
+	origin : Vector2
 }
 
 export interface IGameScene
@@ -50,6 +61,19 @@ export class SystemPipeline
   }
 
   // TODO: remove func
+}
+
+export type GameConfig = {
+
+  startingLives : number,
+  rewardLifeThreshold : number,
+
+  asteroidStats : AsteroidStats,
+
+  playerStats : PlayerStats,
+
+  // enemyStats : EnemyStats - TODO
+
 }
 
 export type PlayerStats = {

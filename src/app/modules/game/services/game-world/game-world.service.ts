@@ -6,7 +6,7 @@ import { IInvokableService } from '@/app/common/types';
 import Player from '@/game/components/player';
 import Asteroid from '@/game/components/asteroid';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
-import { asteroidConfigs } from '@/game/constants';
+import { ASTEROID_SPRITE_CONFIGS } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
 
 @Injectable({
@@ -77,9 +77,9 @@ export class GameWorldService implements IInvokableService
       }
     }
 
-    createPrefabBundle( this._world, asteroids.small, asteroidPrefab, asteroidConfigs[0] );
-    createPrefabBundle( this._world, asteroids.medium, asteroidPrefab, asteroidConfigs[1] );
-    createPrefabBundle( this._world, asteroids.large, asteroidPrefab, asteroidConfigs[2] );
+    createPrefabBundle( this._world, asteroids.small, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[0] );
+    createPrefabBundle( this._world, asteroids.medium, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[1] );
+    createPrefabBundle( this._world, asteroids.large, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[2] );
   }
 
   spawnPlayer() : void

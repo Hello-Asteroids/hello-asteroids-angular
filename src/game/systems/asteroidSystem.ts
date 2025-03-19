@@ -4,7 +4,7 @@ import { createPrefab, createPrefabBundle } from "@/app/common/utilities";
 
 import { IGameScene } from "@/game/types";
 import { asteroidPrefab, explosionPrefab } from "@/game/prefabs";
-import { asteroidConfigs } from "@/game/constants";
+import { ASTEROID_SPRITE_CONFIGS } from "@/game/constants";
 
 import Asteroid from "@/game/components/asteroid";
 import Collision from "@/game/components/collision";
@@ -36,7 +36,7 @@ export default function AsteroidSystem<T extends IGameScene>( _scene : T )
       {
 
         const config =  {
-          ...asteroidConfigs[ Asteroid.tier[ entity ] - 1 ],
+          ...ASTEROID_SPRITE_CONFIGS[ Asteroid.tier[ entity ] - 1 ],
           position : {
             x : Position.x[ entity ],
             y : Position.y[ entity ]
