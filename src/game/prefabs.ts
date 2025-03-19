@@ -21,7 +21,7 @@ import Player from "@/game/components/player";
 import Animation from "@/game/components/animation";
 import WorthPoints from "@/game/components/worthPoints";
 import Enemy from "@/game/components/enemy";
-import { PlayerStats } from "@/app/common/types";
+import { PlayerStats } from "./types";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );

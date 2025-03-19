@@ -2,10 +2,10 @@ import { GameStateService } from '@/app/modules/game/services/game-state/game-st
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoonCardComponent } from "./components/boon-card/boon-card.component";
-import { Banes, Boons } from '@/app/common/constants';
-import { Factor, Modifier, PlayerStats } from '@/app/common/types';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
 import Player from '@/game/components/player';
+import { Factor, Modifier, PlayerStats } from '@/game/types';
+import { Banes, Boons } from '@/game/constants';
 
 @Component({
   selector: 'app-levelup',

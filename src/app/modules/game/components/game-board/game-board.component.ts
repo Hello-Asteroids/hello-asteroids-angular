@@ -34,6 +34,9 @@ export class GameBoardComponent implements OnInit
         Preloader,
         new Gameplay( this._gameStateService, this._gameWorldService, _playerInputService )
       ],
+      fps : {
+        limit : 60
+      }
     }
   }
 

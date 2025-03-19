@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Component, createWorld, defineQuery, getAllEntities, IWorld, removeEntity } from 'bitecs';
 
-import { IInvokableService, PlayerStats } from '@/app/common/types';
+import { IInvokableService } from '@/app/common/types';
 
 import Player from '@/game/components/player';
 import Asteroid from '@/game/components/asteroid';
-import Weapon from '@/game/components/weapon';
-import Velocity from '@/game/components/velocity';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { asteroidConfigs } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
-import TankControls from '@/game/components/tankControls';
 
 @Injectable({
   providedIn: 'root'

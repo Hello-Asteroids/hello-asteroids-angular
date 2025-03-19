@@ -1,5 +1,4 @@
 import { IWorld } from "bitecs";
-import { PlayerStats } from "./types";
 
 export function prettyNumber( _value : number | string )
 {

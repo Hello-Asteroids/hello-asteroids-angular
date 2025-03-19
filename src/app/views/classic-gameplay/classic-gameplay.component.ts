@@ -2,7 +2,7 @@ import { Component, effect, OnInit } from '@angular/core';
 import { GameplayComponent } from '../gameplay/gameplay.component';
 import { Router } from '@angular/router';
 import { HudComponent } from "@/app/common/components/hud/hud.component";
-import { DEFAULT_PLAYER_STATS } from '@/app/common/constants';
+import { DEFAULT_PLAYER_STATS } from '@/game/constants';
 
 @Component({
   selector: 'app-classic-gameplay',

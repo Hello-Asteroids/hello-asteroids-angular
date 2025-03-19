@@ -1,7 +1,8 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
-import { IInvokableService, PlayerStats } from '@/app/common/types';
-import { DEFAULT_LEVEL, DEFAULT_LIVES, DEFAULT_PLAYER_STATS, DEFAULT_SCORE } from '@/app/common/constants';
+import { IInvokableService } from '@/app/common/types';
+import { PlayerStats } from '@/game/types';
+import { DEFAULT_LEVEL, DEFAULT_LIVES, DEFAULT_PLAYER_STATS, DEFAULT_SCORE } from '@/game/constants';
 
 @Injectable( {
   providedIn : 'root'
