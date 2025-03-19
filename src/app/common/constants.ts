@@ -31,9 +31,9 @@ export const DEFAULT_PLAYER_STATS = {
 
     fireRate : 3.5,
     range : 750,
-    projectileCount : 1,
+    projectileCount : 100,
     projectileSpeed : 120,
-    deviation : 1,
+    deviation : 100,
     spread : 0
   }
 }

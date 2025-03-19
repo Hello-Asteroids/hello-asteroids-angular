@@ -5,6 +5,7 @@ import { BoonCardComponent } from "./components/boon-card/boon-card.component";
 import { Banes, Boons } from '@/app/common/constants';
 import { Factor, Modifier, PlayerStats } from '@/app/common/types';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
+import Player from '@/game/components/player';
 
 @Component({
   selector: 'app-levelup',
@@ -25,6 +26,8 @@ export class LevelupComponent
   constructor( private _router : Router )
   {
     this.currentLevel = this._router.getCurrentNavigation()?.extras.state?.[ 'level' ];
+
+    this.gameWorldService.destroyQuery( [ Player ] );
 
     const boonIndexes : Array<number> = [];
     const baneIndexes : Array<number> = [];
@@ -86,7 +89,6 @@ export class LevelupComponent
       this.gameStateService.playerStats[ mod.property as keyof PlayerStats ] = newValue;
     } );
 
-    this.gameWorldService.refreshPlayer();
     this.gameStateService.playerStats.level = this.currentLevel;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );

@@ -10,7 +10,8 @@ import { DEFAULT_PLAYER_STATS } from '@/app/common/constants';
   templateUrl: './roguelike-gameplay.component.html',
   styleUrl: './roguelike-gameplay.component.css'
 })
-export class RoguelikeGameplayComponent extends GameplayComponent implements OnInit {
+export class RoguelikeGameplayComponent extends GameplayComponent implements OnInit
+{
   constructor( _router : Router )
   {
     super( _router );
@@ -18,6 +19,7 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
     // Level Effect
     effect( () => {
       const currentLevel = this.gameStateService.level();
+      console.log(currentLevel, this.gameStateService.playerStats.level)
       if( currentLevel !== this.gameStateService.playerStats.level )
         _router.navigate( [ '/levelup' ], { state : { level : currentLevel }, skipLocationChange : true } );
     } )
@@ -30,8 +32,12 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
 
     if( currentLevel === 1 )
     {
-      this.gameStateService.reset();
       this.gameStateService.playerStats = DEFAULT_PLAYER_STATS.roguelike;
+      // this.gameWorldService.spawnPlayer();
+    }
+    else
+    {
+
     }
 
     this.gameWorldService.loadLevel( currentLevel );

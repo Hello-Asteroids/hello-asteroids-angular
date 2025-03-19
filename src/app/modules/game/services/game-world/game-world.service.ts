@@ -92,15 +92,7 @@ export class GameWorldService implements IInvokableService
 
   refreshPlayer() : void
   {
-    const query = defineQuery( [ Player ] );
-    const entities = query( this._world );
-
-    for( let i = 0; i < entities.length; i++ )
-    {
-      console.log('remove player?')
-      removeEntity( this._world, entities[i] );
-    }
-
+    this.destroyQuery( [ Player ] );
     this.spawnPlayer();
   }
 

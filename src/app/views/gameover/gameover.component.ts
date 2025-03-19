@@ -10,12 +10,16 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class GameoverComponent
 {
-  gameStateService : GameStateService = inject( GameStateService );
+  get gameStateService() : GameStateService
+  {
+    return this._gameStateService;
+  }
 
   constructor( private _router : Router, private _gameStateService : GameStateService ){}
 
   replay()
   {
+    this._gameStateService.reset();
     this._router.navigate( [ this._gameStateService.type ], { skipLocationChange : true } );
   }
 }

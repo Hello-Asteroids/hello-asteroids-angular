@@ -10,7 +10,8 @@ import { DEFAULT_PLAYER_STATS } from '@/app/common/constants';
   templateUrl: './classic-gameplay.component.html',
   styleUrl: './classic-gameplay.component.css'
 })
-export class ClassicGameplayComponent extends GameplayComponent implements OnInit {
+export class ClassicGameplayComponent extends GameplayComponent implements OnInit
+{
   constructor( _router : Router )
   {
     super( _router );
@@ -27,6 +28,5 @@ export class ClassicGameplayComponent extends GameplayComponent implements OnIni
   {
     this.gameStateService.type = 'classic';
     this.gameStateService.playerStats = DEFAULT_PLAYER_STATS.classic;
-    this.gameStateService.reset();
   }
 }

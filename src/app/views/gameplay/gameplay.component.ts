@@ -32,23 +32,21 @@ export class GameplayComponent implements OnDestroy
     // Lives Effect
     effect( () => {
       const currentLives = this.gameStateService.lives();
-
       if( this.gameWorldService.playerCount === 0 )
       {
-        if( currentLives > 0 )
-        {
-          this.playerInputService.reset();
-          this.gameWorldService.spawnPlayer();
-        }
-        else
+        if( currentLives === 0 )
         {
           this._router.navigate( [ '/gameover' ], { skipLocationChange : true } );
         }
+        else {
+          this.gameWorldService.spawnPlayer();
+        }
+
       }
     } );
   }
 
-  ngOnDestroy(): void
+  ngOnDestroy() : void
   {
     this.playerInputService.reset();
   }
