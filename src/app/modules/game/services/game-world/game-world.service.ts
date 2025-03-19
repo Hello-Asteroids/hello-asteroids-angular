@@ -87,28 +87,16 @@ export class GameWorldService implements IInvokableService
 
   spawnPlayer() : void
   {
-    createPrefab( this._world, playerSpawnerPrefab );
-  }
-
-  refreshPlayer( _stats : PlayerStats ) : void
-  {
     const query = defineQuery( [ Player, Weapon, Velocity ] );
     const entities = query( this._world );
 
     for( let i = 0; i < entities.length; i++ )
     {
       const entity = entities[i];
-
-      TankControls.acceleration[ entity ] = _stats.acceleration;
-      TankControls.rotationSpeed[ entity ] = _stats.rotationSpeed;
-
-      Weapon.rate[ entity ] = _stats.fireRate; // Per second
-      Weapon.range[ entity ] = _stats.range; // Per second
-      Weapon.projectileCount[ entity ] = _stats.projectileCount;
-      Weapon.projectileSpeed[ entity ] = _stats.projectileSpeed;
-      Weapon.deviation[ entity ] = _stats.deviation;
-      Weapon.spread[ entity ] = _stats.spread;
+      removeEntity( this._world, entity );
     }
+
+    createPrefab( this._world, playerSpawnerPrefab );
   }
 
   // Getters

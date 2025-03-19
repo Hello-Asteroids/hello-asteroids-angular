@@ -72,7 +72,9 @@ export class LevelupComponent
       switch( mod.operation )
       {
         case "add_percent" :
-          newValue = currentValue + ( currentValue * ( mod.value / 100 ) );
+          const percentAmount = currentValue * ( Math.abs( mod.value ) / 100 );
+          const dir = mod.value >= 0 ? 1 : -1;
+          newValue = currentValue + ( percentAmount * dir );
           break;
       }
 
@@ -81,10 +83,10 @@ export class LevelupComponent
         newValue = Math.max( mod.min, newValue );
       }
 
-      this.gameStateService.playerStats[mod.property as keyof PlayerStats] = newValue;
+      this.gameStateService.playerStats[ mod.property as keyof PlayerStats ] = newValue;
     } );
 
-    this.gameWorldService.refreshPlayer( this.gameStateService.playerStats );
+    this.gameWorldService.spawnPlayer();
     this.gameStateService.playerStats.level = this.currentLevel;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );
