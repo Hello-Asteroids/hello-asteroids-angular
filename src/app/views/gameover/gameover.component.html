@@ -3,8 +3,13 @@
     <div class="relative mb-6">
       <h2 class="text-[6rem] leading-none">Game Over!</h2>
     </div>
-    <p>You Scored {{ this.gameStateService.score() }}</p>
-    <a (click)="replay()" class="hover:text-gray-300 text-4xl">| Play Again? |</a>
-    <a routerLink="/" skipLocationChange="true" class="hover:text-gray-300 text-4xl">| Quit |</a>
+    <p class="text-3xl mb-4">You Scored {{ this.gameStateService.score() }} points<span *ngIf="gameStateService.gameConfig.id==='roguelike'"> and reached level {{ gameStateService.level() }}</span>!</p>
+    <div class="flex text-4xl">
+      <span>|</span>
+      <a (click)="replay()" class="hover:text-gray-300 mx-4">Play Again?</a>
+      <span>|</span>
+      <a routerLink="/" skipLocationChange="true" class="hover:text-gray-300 mx-4">Main Menu</a>
+      <span>|</span>
+    </div>
   </div>
 </div>

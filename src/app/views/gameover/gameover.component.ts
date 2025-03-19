@@ -1,10 +1,11 @@
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gameover',
-  imports: [ RouterLink ],
+  imports: [ CommonModule, RouterLink ],
   templateUrl: './gameover.component.html',
   styleUrl: './gameover.component.css'
 })
