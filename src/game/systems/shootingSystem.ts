@@ -58,7 +58,7 @@ import Duration from "@/game/components/duration";
             const v_y = Math.sin( direction + spreadAngle + deviation ) * Weapon.projectileSpeed[ entity ];
 
             const projectileEntity = createPrefab( _world, projectilePrefab, { position : { x : p_x, y : p_y }, velocity : { x : v_x, y : v_y } } );
-            Duration.value[ projectileEntity ] = Weapon.range[ entity ];
+            Duration.value[ projectileEntity ] = Weapon.range[ entity ] + ( Math.random() * ( Weapon.range[ entity ] * 0.02 ) );
           }
         }
       }

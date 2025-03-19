@@ -14,12 +14,12 @@ import Preloader from '@/game/scenes/Preloader';
 export class GameBoardComponent implements OnInit
 {
 
-  private _gameConfig;
+  private _phaserConfig;
 
   constructor( private _gameStateService : GameStateService, private _gameWorldService : GameWorldService, _playerInputService : PlayerInputService )
   {
 
-    this._gameConfig = {
+    this._phaserConfig = {
       type : Phaser.AUTO,
       parent : 'phaser-window',
       transparent: true,
@@ -42,6 +42,6 @@ export class GameBoardComponent implements OnInit
 
   ngOnInit(): void
   {
-    new Game( this._gameConfig );
+    new Game( this._phaserConfig );
   }
 }

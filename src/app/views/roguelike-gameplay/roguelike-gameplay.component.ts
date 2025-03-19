@@ -1,18 +1,24 @@
-import { Component, effect, OnInit } from '@angular/core';
-import { GameplayComponent } from '../gameplay/gameplay.component';
-import { Router } from '@angular/router';
-import Player from '@/game/components/player';
-import { ScoreCounterComponent } from "../../common/components/hud/score-counter/score-counter.component";
-import { LivesCounterComponent } from "../../common/components/hud/lives-counter/lives-counter.component";
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { ScoreCounterComponent } from "@/app/common/components/hud/score-counter/score-counter.component";
+import { LivesCounterComponent } from "@/app/common/components/hud/lives-counter/lives-counter.component";
+import { GameplayComponent } from '@/app/views/gameplay/gameplay.component';
+import { GameConfigs } from '@/game/constants';
 
 @Component({
   selector: 'app-roguelike-gameplay',
-  imports: [ ScoreCounterComponent, LivesCounterComponent ],
+  imports: [
+    RouterOutlet,
+    ScoreCounterComponent,
+    LivesCounterComponent
+  ],
   templateUrl: './roguelike-gameplay.component.html',
   styleUrl: './roguelike-gameplay.component.css'
 })
 export class RoguelikeGameplayComponent extends GameplayComponent implements OnInit
 {
+  private _currentLevel! : number;
+
   constructor( _router : Router )
   {
     super( _router );
@@ -20,12 +26,31 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
 
   override ngOnInit() : void
   {
+    this.gameStateService.gameConfig = { ...GameConfigs.roguelike };
+    console.log( 'do?', this.gameStateService.gameConfig )
+    console.log( 'done',GameConfigs.roguelike)
     super.ngOnInit();
   }
 
-  override handleLevelUpdate(_newValue: number): void
+  override handleLevelUpdate( _newValue: number ) : void
   {
-    this.gameWorldService.destroyQuery( [ Player ] );
+    if( !this._currentLevel )
+      this._currentLevel = _newValue;
 
+    if( this._currentLevel !== _newValue )
+    {
+      this.router.navigate( [ 'roguelike/levelup' ], { skipLocationChange : true } );
+    }
+    else if( _newValue === 1 )
+    {
+      this.gameWorldService.loadLevel( _newValue );
+    }
+  }
+
+  onLevelUpSelected( _event : any ) : void
+  {
+    console.log('return')
+    this.gameWorldService.loadLevel( this.gameStateService.level() );
+    this.gameWorldService.refreshPlayer();
   }
 }

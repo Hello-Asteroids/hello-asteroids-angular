@@ -20,7 +20,7 @@ export class ClassicGameplayComponent extends GameplayComponent implements OnIni
 
   override ngOnInit() : void
   {
+    this.gameStateService.gameConfig = { ...GameConfigs.classic };
     super.ngOnInit();
-    this.gameStateService.gameConfig = GameConfigs.classic;
   }
 }

@@ -11,14 +11,14 @@ import type { GameConfig } from '@/game/types';
 export class GameStateService implements IInvokableService
 {
 
-  gameConfig : GameConfig = GameConfigs.classic;
+  gameConfig! : GameConfig;
 
   paused : boolean = false;
 
   level : WritableSignal<number> = signal( 1 );
   score : WritableSignal<number> = signal( 0 );
   hiScore : WritableSignal<number> = signal( +( window.sessionStorage.getItem( 'hi-score' ) || 0 ) );
-  lives : WritableSignal<number> = signal( this.gameConfig.startingLives );
+  lives : WritableSignal<number> = signal( 0 );
 
   private additionalLives : number = 0;
 
@@ -26,6 +26,11 @@ export class GameStateService implements IInvokableService
 
   reset() : void
   {
+    if( !this.gameConfig )
+      return;
+
+    console.log( 'reset' )
+
     this.level.set( 1 );
     this.score.set( 0 );
     this.lives.set( this.gameConfig.startingLives );

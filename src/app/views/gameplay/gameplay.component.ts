@@ -21,6 +21,11 @@ export class GameplayComponent implements OnInit, OnDestroy
     return this._gameType;
   }
 
+  get router() : Router
+  {
+    return this._router;
+  }
+
   gameStateService = inject( GameStateService );
   gameWorldService = inject( GameWorldService );
   playerInputService = inject( PlayerInputService );

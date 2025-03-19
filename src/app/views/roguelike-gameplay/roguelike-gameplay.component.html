@@ -8,8 +8,4 @@
   <app-score-counter [scoreType]="'hiScore'" class="text-3xl" />
 </div>
 
-<!-- <div class="fixed flex flex-col w-full h-full justify-center items-center text-white pixel text-center bg-slate-950/50" *ngIf="this.gameStateService.paused">
-  <h2 class="text-5xl mb-4">Paused</h2>
-  <a class="text-4xl cursor-pointer" (click)="this.handleQuitClick()" role="button">| Quit |</a>
-</div> -->
-
+<router-outlet (deactivate)="onLevelUpSelected( $event )" />
