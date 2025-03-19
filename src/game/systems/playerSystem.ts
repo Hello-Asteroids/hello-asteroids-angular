@@ -54,7 +54,7 @@ export default function PlayerSystem<T extends IGameScene>( _scene : T )
       }
 
       createPrefabBundle( _world, 3, playerDebisPrefab, config );
-
+      console.log('die counts')
       if( playerQuery( _world ).length === 0 )
       {
         state.updateLives( -1 );

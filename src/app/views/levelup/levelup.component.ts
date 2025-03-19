@@ -86,7 +86,7 @@ export class LevelupComponent
       this.gameStateService.playerStats[ mod.property as keyof PlayerStats ] = newValue;
     } );
 
-    this.gameWorldService.spawnPlayer();
+    this.gameWorldService.refreshPlayer();
     this.gameStateService.playerStats.level = this.currentLevel;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );

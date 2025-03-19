@@ -21,6 +21,7 @@ import Player from "@/game/components/player";
 import Animation from "@/game/components/animation";
 import WorthPoints from "@/game/components/worthPoints";
 import Enemy from "@/game/components/enemy";
+import { PlayerStats } from "@/app/common/types";
 
 export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
@@ -77,7 +78,7 @@ export const playerSpawnerPrefab = ( _world : IWorld ) : number => {
   return entity;
 }
 
-export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
+export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, playerStats : PlayerStats } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Player, entity );
@@ -102,17 +103,17 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
 
-  Velocity.max[ entity ] = 90;
+  Velocity.max[ entity ] = _opts.playerStats.maxSpeed;
 
-  TankControls.acceleration[ entity ] = 80;
-  TankControls.rotationSpeed[ entity ] = 0.4;
+  TankControls.acceleration[ entity ] = _opts.playerStats.acceleration;
+  TankControls.rotationSpeed[ entity ] = _opts.playerStats.rotationSpeed;
 
-  Weapon.rate[ entity ] = 3.5; // Per second
-  Weapon.range[ entity ] = 750; // Per second
-  Weapon.projectileCount[ entity ] = 1;
-  Weapon.projectileSpeed[ entity ] = 120;
-  Weapon.deviation[ entity ] = 4;
-  Weapon.spread[ entity ] = 0;
+  Weapon.rate[ entity ] = _opts.playerStats.fireRate; // Per second
+  Weapon.range[ entity ] = _opts.playerStats.range; // Per second
+  Weapon.projectileCount[ entity ] = _opts.playerStats.projectileCount;
+  Weapon.projectileSpeed[ entity ] = _opts.playerStats.projectileSpeed;
+  Weapon.deviation[ entity ] = _opts.playerStats.deviation;
+  Weapon.spread[ entity ] = _opts.playerStats.spread;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 

@@ -87,16 +87,21 @@ export class GameWorldService implements IInvokableService
 
   spawnPlayer() : void
   {
-    const query = defineQuery( [ Player, Weapon, Velocity ] );
+    createPrefab( this._world, playerSpawnerPrefab );
+  }
+
+  refreshPlayer() : void
+  {
+    const query = defineQuery( [ Player ] );
     const entities = query( this._world );
 
     for( let i = 0; i < entities.length; i++ )
     {
-      const entity = entities[i];
-      removeEntity( this._world, entity );
+      console.log('remove player?')
+      removeEntity( this._world, entities[i] );
     }
 
-    createPrefab( this._world, playerSpawnerPrefab );
+    this.spawnPlayer();
   }
 
   // Getters

@@ -19,7 +19,7 @@ export default function playerSpawnSystem<T extends IGameScene>( _scene : T )
 
   return defineSystem( ( _world : IWorld ) => {
 
-    const { stateService, worldService } = _scene;
+    const { stateService } = _scene;
 
     let i;
 
