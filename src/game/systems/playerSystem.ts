@@ -1,4 +1,4 @@
-import { defineQuery, defineSystem, exitQuery } from "bitecs";
+import { defineQuery, defineSystem, enterQuery, exitQuery } from "bitecs";
 import type { IWorld } from "bitecs";
 
 import { IGameScene } from "@/game/types";
@@ -12,21 +12,43 @@ import Rotation from "@/game/components/rotation";
 import Collision from "@/game/components/collision";
 import Velocity from "@/game/components/velocity";
 import Animation from "@/game/components/animation";
+import Weapon from "../components/weapon";
+import TankControls from "../components/tankControls";
 
 export default function PlayerSystem<T extends IGameScene>( _scene : T )
 {
 
-  const playerQuery = defineQuery( [ Player, Velocity, Animation ] );
+  const playerQuery = defineQuery( [ Player, Velocity, Weapon, TankControls, Animation ] );
+  const playerEnterQuery = enterQuery( playerQuery );
 
   const playerCollisionQuery = defineQuery( [ Player, Position, Rotation, Collision ] );
   const playerCollisionExitQuery = exitQuery( playerCollisionQuery );
 
-  const { stateService: state } = _scene;
+  const { stateService } = _scene;
 
   return defineSystem( ( _world : IWorld ) => {
 
+    const { playerStats } = stateService.gameConfig;
 
-    let entities = playerQuery( _world );
+    let entities = playerEnterQuery( _world );
+    for( let i = 0; i < entities.length; i++ )
+    {
+      const entity = entities[i];
+
+      Velocity.max[ entity ] = playerStats.maxSpeed.value;
+
+      TankControls.acceleration[ entity ] = playerStats.acceleration.value;
+      TankControls.rotationSpeed[ entity ] = playerStats.rotationSpeed.value;
+
+      Weapon.rate[ entity ] = playerStats.fireRate.value; // Per secon.valued
+      Weapon.range[ entity ] = playerStats.range.value; // Per secon.valued
+      Weapon.projectileCount[ entity ] = playerStats.projectileCount.value;
+      Weapon.projectileSpeed[ entity ] = playerStats.projectileSpeed.value;
+      Weapon.deviation[ entity ] = playerStats.deviation.value;
+      Weapon.spread[ entity ] = playerStats.spread.value;
+    }
+
+    entities = playerQuery( _world );
     for( let i = 0; i < entities.length; i++ )
     {
       const entity = entities[i];
@@ -57,7 +79,7 @@ export default function PlayerSystem<T extends IGameScene>( _scene : T )
       console.log('die counts')
       if( playerQuery( _world ).length === 0 )
       {
-        state.updateLives( -1 );
+        stateService.updateLives( -1 );
       }
     }
 

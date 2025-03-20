@@ -73,7 +73,7 @@ export const playerSpawnerPrefab = ( _world : IWorld ) : number => {
   return entity;
 }
 
-export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number }, playerStats : PlayerStats } ) : number => {
+export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Player, entity );
@@ -98,21 +98,10 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
 
-  Velocity.max[ entity ] = _opts.playerStats.maxSpeed.value;
   Velocity.value.x[ entity ] = 0;
   Velocity.value.y[ entity ] = 0;
   Velocity.acceleration.x[ entity ] = 0;
   Velocity.acceleration.y[ entity ] = 0;
-
-  TankControls.acceleration[ entity ] = _opts.playerStats.acceleration.value;
-  TankControls.rotationSpeed[ entity ] = _opts.playerStats.rotationSpeed.value;
-
-  Weapon.rate[ entity ] = _opts.playerStats.fireRate.value; // Per secon.valued
-  Weapon.range[ entity ] = _opts.playerStats.range.value; // Per secon.valued
-  Weapon.projectileCount[ entity ] = _opts.playerStats.projectileCount.value;
-  Weapon.projectileSpeed[ entity ] = _opts.playerStats.projectileSpeed.value;
-  Weapon.deviation[ entity ] = _opts.playerStats.deviation.value;
-  Weapon.spread[ entity ] = _opts.playerStats.spread.value;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 
