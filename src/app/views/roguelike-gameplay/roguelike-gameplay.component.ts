@@ -4,14 +4,20 @@ import { ScoreCounterComponent } from "@/app/common/components/hud/score-counter
 import { LivesCounterComponent } from "@/app/common/components/hud/lives-counter/lives-counter.component";
 import { GameplayComponent } from '@/app/views/gameplay/gameplay.component';
 import { GameConfigs } from '@/game/constants';
+import { PauseScreenComponent } from "../../common/components/pause-screen/pause-screen.component";
+import { CommonModule } from '@angular/common';
+import { StatPanelComponent } from "./components/stat-panel/stat-panel.component";
 
 @Component({
   selector: 'app-roguelike-gameplay',
   imports: [
+    CommonModule,
     RouterOutlet,
     ScoreCounterComponent,
-    LivesCounterComponent
-  ],
+    LivesCounterComponent,
+    PauseScreenComponent,
+    StatPanelComponent
+],
   templateUrl: './roguelike-gameplay.component.html',
   styleUrl: './roguelike-gameplay.component.css'
 })

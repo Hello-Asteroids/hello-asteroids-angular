@@ -21,7 +21,7 @@
             <div class="my-2">
               @for( bane of item[1].modifiers; track bane.description )
               {
-                <p>{{ bane.description }}: <span class="text-green-600" [innerHTML]="( bane.prefix || '' ) + ( bane.value || '' ) + ( bane.sufix || '' )"></span></p>
+                <p>{{ bane.description }}: <span class="text-red-600" [innerHTML]="( bane.value > 0 ? '+' : '' ) + ( bane.value || '' ) + ( bane.sufix || '' )"></span></p>
               }
             </div>
           </div>

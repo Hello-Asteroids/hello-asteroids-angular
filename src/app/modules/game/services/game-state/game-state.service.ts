@@ -29,7 +29,7 @@ export class GameStateService implements IInvokableService
     if( !this.gameConfig )
       return;
 
-    console.log( 'reset' )
+    this.paused = false;
 
     this.level.set( 1 );
     this.score.set( 0 );

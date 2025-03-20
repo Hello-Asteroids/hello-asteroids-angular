@@ -136,7 +136,6 @@ export const Boons : Array<Factor> = [
         property : "projectileCount",
         value : 1,
         operation : 'add',
-        prefix: "+"
       },
       {
         statBlock : STAT_BLOCK.PLAYER,
@@ -144,7 +143,6 @@ export const Boons : Array<Factor> = [
         property : "spread",
         value : 5,
         operation : 'add',
-        prefix : '+',
         sufix : "&deg;"
       }
     ]
@@ -159,7 +157,6 @@ export const Boons : Array<Factor> = [
         property : "maxSpeed",
         value : 10,
         operation : "add_percent",
-        prefix : "+",
         sufix: "%"
       }
     ]
@@ -174,7 +171,6 @@ export const Boons : Array<Factor> = [
         property : "spread",
         value : 10,
         operation : "add",
-        prefix : "+",
         sufix: "&deg;"
       }
     ]
@@ -189,7 +185,6 @@ export const Boons : Array<Factor> = [
         property : "acceleration",
         value : 10,
         operation : "add_percent",
-        prefix : "+",
         sufix: "%"
       }
     ]
@@ -204,7 +199,6 @@ export const Boons : Array<Factor> = [
         property : "projectileCount",
         value : 3,
         operation : 'add',
-        prefix: "+"
       },
       {
         statBlock : STAT_BLOCK.PLAYER,
@@ -212,7 +206,6 @@ export const Boons : Array<Factor> = [
         property : "spread",
         value : 20,
         operation : "add",
-        prefix : "+",
         sufix: "&deg;"
       },
       {
@@ -235,7 +228,6 @@ export const Boons : Array<Factor> = [
         property : "range",
         value : 30,
         operation : "add_percent",
-        prefix : "+",
         sufix : "%",
       },
       {
@@ -245,7 +237,6 @@ export const Boons : Array<Factor> = [
         value : 5,
         operation : "add_percent",
         sufix: "%",
-        prefix : "+"
       }
     ]
   }
@@ -262,7 +253,6 @@ export const Banes : Array<Factor> = [
         value : 15,
         operation : "add_percent",
         sufix: "%",
-        prefix : "+"
       }
     ]
   },
@@ -284,7 +274,6 @@ export const Banes : Array<Factor> = [
         value : 5,
         operation : "add",
         sufix : "&deg;",
-        prefix : "+"
       }
     ]
   },

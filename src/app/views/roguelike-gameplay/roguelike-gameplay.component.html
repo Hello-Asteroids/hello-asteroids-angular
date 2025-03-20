@@ -12,4 +12,9 @@
   <span class="mr-2">Level</span> <app-score-counter [scoreType]="'level'" class="" />
 </div>
 
+<div *ngIf="gameStateService.paused" class="fixed flex justify-center items-center w-full h-full bg-slate-950/50">
+  <app-stat-panel class="absolute left-6 top-36" />
+  <app-pause-screen />
+</div>
+
 <router-outlet (deactivate)="onLevelUpSelected( $event )" />
