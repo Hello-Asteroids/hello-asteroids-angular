@@ -1,18 +1,18 @@
 <div class="text-white pixel">
   <div class="mb-6">
-    <h2 class="text-2xl underline">Player Stats</h2>
-    <div>
+    <h2 class="text-3xl underline">Player Stats</h2>
+    <div class="text-2xl">
       @for( item of playerStats; track $index ) {
-        <p>{{ item.description }}: {{ item.value }}</p>
+        <p>{{ item.description }}: <span [ngClass]="getPlayerStatusClass(item)">{{ item.value }}</span></p>
       }
     </div>
   </div>
 
   <div>
-    <h2 class="text-2xl underline">Asteroid Stats</h2>
-    <div>
+    <h2 class="text-3xl underline">Asteroid Stats</h2>
+    <div class="text-2xl">
       @for( item of asteroidStats; track $index ) {
-        <p>{{ item.description }}: {{ item.value }}</p>
+        <p>{{ item.description }}: <span [ngClass]="getAsteroidStatusClass(item)">{{ item.value }}</span></p>
       }
     </div>
   </div>

@@ -80,10 +80,6 @@ export class LevelupComponent
       statBlock[ mod.property as keyof typeof statBlock ].value = modifyStatValue( currentValue, mod.value, mod.operation, mod.min );
     } );
 
-    gameConfig.playerStats.level.value = this.currentLevel;
-
-    console.log(gameConfig);
-
     this.gameStateService.gameConfig = gameConfig;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );

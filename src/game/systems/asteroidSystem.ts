@@ -32,11 +32,16 @@ export default function AsteroidSystem<T extends IGameScene>( _scene : T )
     {
       const entity = entities[i];
 
+      const { lgPointValue, mdPointValue, smPointValue } = stateService.gameConfig.asteroidStats;
+      const pointValues = [ smPointValue, mdPointValue, lgPointValue ]
+
       const angle = Math.random() * 2 * Math.PI;
       const speed = minSpeed.value + ( Math.random() * ( maxSpeed.value - minSpeed.value ) );
 
       Velocity.value.x[ entity ] = Math.cos( angle ) * speed;
       Velocity.value.y[ entity ] = Math.sin( angle ) * speed;
+
+      WorthPoints.value[ entity ] = pointValues[ Asteroid.tier[ entity ] ].value;
     }
 
     entities = hitAsteroidExitQuery( _world );

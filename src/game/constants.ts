@@ -77,14 +77,12 @@ export const GameConfigs : { classic : GameConfig, roguelike : GameConfig } = {
     },
 
     playerStats : {
-      level : { value : 1, description : 'Level' },
-
       maxSpeed : { value : 90, description : 'Max Speed' },
       acceleration : { value : 60, description : 'Acceleration' },
       rotationSpeed : { value : 0.4, description : 'Rotation Speed' },
 
-      fireRate : { value : 3.5, description : 'Fire Rate' },
-      range : { value : 750, description : 'Weapon Range' },
+      fireRate : { value : 4, description : 'Fire Rate' },
+      range : { value : 900, description : 'Weapon Range' },
       projectileCount : { value : 1, description : 'Bullet Count' },
       projectileSpeed : { value : 120, description : 'Bullet Speed' },
       deviation : { value : 0, description : 'Bullet Deviation' },
@@ -104,24 +102,22 @@ export const GameConfigs : { classic : GameConfig, roguelike : GameConfig } = {
       minSpeed : { value : 5, description : 'Min Speed' },
       spawnCount : { value : 2, description : 'Spawn Count' },
 
-      smPointValue : { value : 100, description : 'Small Asteroid Value' },
-      mdPointValue : { value : 50, description : 'Medium Asteroid Value' },
-      lgPointValue : { value : 20, description : 'Large Asteroid Value' }
+      smPointValue : { value : 100, description : 'Small Asteroid Value', smallPrefered : true },
+      mdPointValue : { value : 50, description : 'Medium Asteroid Value', smallPrefered : true },
+      lgPointValue : { value : 20, description : 'Large Asteroid Value', smallPrefered : true }
     },
 
     playerStats : {
-      level : { value : 1, description : 'Level' },
-
       maxSpeed : { value : 90, description : 'Max Speed' },
       acceleration : { value : 60, description : 'Acceleration' },
       rotationSpeed : { value : 0.4, description : 'Rotation Speed' },
 
       fireRate : { value : 3.5, description : 'Fire Rate' },
       range : { value : 750, description : 'Weapon Range' },
-      projectileCount : { value : 3, description : 'Bullet Count' },
+      projectileCount : { value : 1, description : 'Bullet Count' },
       projectileSpeed : { value : 100, description : 'Bullet Speed' },
-      deviation : { value : 2, description : 'Bullet Deviation' },
-      spread : { value : 20, description : 'Bullet Spread' }
+      deviation : { value : 4, description : 'Bullet Deviation', smallPrefered : true },
+      spread : { value : 0, description : 'Bullet Spread' }
     }
   }
 }
@@ -141,7 +137,7 @@ export const Boons : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Projectile Spread",
         property : "spread",
-        value : 5,
+        value : 15,
         operation : 'add',
         sufix : "&deg;"
       }
@@ -155,7 +151,7 @@ export const Boons : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Top speed",
         property : "maxSpeed",
-        value : 10,
+        value : 20,
         operation : "add_percent",
         sufix: "%"
       }
@@ -183,7 +179,7 @@ export const Boons : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Increase Acceleration",
         property : "acceleration",
-        value : 10,
+        value : 20,
         operation : "add_percent",
         sufix: "%"
       }
@@ -197,7 +193,7 @@ export const Boons : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Projectile Count",
         property : "projectileCount",
-        value : 3,
+        value : 2,
         operation : 'add',
       },
       {
@@ -210,9 +206,17 @@ export const Boons : Array<Factor> = [
       },
       {
         statBlock : STAT_BLOCK.PLAYER,
+        description : "Increase Projectile Deviation",
+        property : "deviation",
+        value : 8,
+        operation : "add",
+        sufix: "&deg;"
+      },
+      {
+        statBlock : STAT_BLOCK.PLAYER,
         description : "Projectile Range",
         property : "range",
-        value : -30,
+        value : -35,
         operation : "add_percent",
         sufix : "%",
       }
@@ -234,10 +238,52 @@ export const Boons : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Projectile Deviation",
         property : "deviation",
-        value : 5,
+        value : 15,
         operation : "add_percent",
         sufix: "%",
       }
+    ]
+  },
+
+  {
+    name : "Mo' Money",
+    modifiers : [
+      {
+        statBlock : STAT_BLOCK.ASTEROID,
+        description : "Small Asteroid Point Increase",
+        property : "smPointValue",
+        value : 30,
+        operation : "add_percent",
+        sufix : "%",
+      },
+    ]
+  },
+
+  {
+    name : "Middle Child Syndrome",
+    modifiers : [
+      {
+        statBlock : STAT_BLOCK.ASTEROID,
+        description : "Medium Asteroid Point Increase",
+        property : "mdPointValue",
+        value : 30,
+        operation : "add_percent",
+        sufix : "%",
+      },
+    ]
+  },
+
+  {
+    name : "Bigger is Better",
+    modifiers : [
+      {
+        statBlock : STAT_BLOCK.ASTEROID,
+        description : "Large Asteroid Point Increase",
+        property : "lgPointValue",
+        value : 30,
+        operation : "add_percent",
+        sufix : "%",
+      },
     ]
   }
 ]
@@ -307,7 +353,7 @@ export const Banes : Array<Factor> = [
         statBlock : STAT_BLOCK.PLAYER,
         description : "Top speed",
         property : "maxSpeed",
-        value : -10,
+        value : -15,
         operation : "add_percent",
         sufix: "%"
       }
@@ -343,7 +389,7 @@ export const Banes : Array<Factor> = [
   },
 
   {
-    name : "I Sharded",
+    name : "You Sharded",
     modifiers : [
       {
         statBlock : STAT_BLOCK.ASTEROID,
@@ -362,7 +408,7 @@ export const Banes : Array<Factor> = [
         statBlock : STAT_BLOCK.ASTEROID,
         description : "Asteroid Max Speed",
         property : "maxSpeed",
-        value : 12,
+        value : 18,
         operation : 'add_percent',
         sufix : "%"
       },
@@ -371,7 +417,7 @@ export const Banes : Array<Factor> = [
         statBlock : STAT_BLOCK.ASTEROID,
         description : "Asteroid Min Speed",
         property : "minSpeed",
-        value : 20,
+        value : 30,
         operation : 'add_percent',
         sufix : "%"
       },

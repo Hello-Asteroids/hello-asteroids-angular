@@ -90,12 +90,11 @@ export type GameConfig = {
 
 export type Stat = {
   value : number,
-  description : string
+  description : string,
+  smallPrefered? : boolean
 }
 
 export type PlayerStats = {
-  level : Stat,
-
   // Movement Stats
   maxSpeed : Stat,
   acceleration : Stat,
