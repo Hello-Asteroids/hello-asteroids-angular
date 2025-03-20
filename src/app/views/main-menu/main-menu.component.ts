@@ -1,6 +1,6 @@
 import { GameStateService } from '@/app/modules/game/services/game-state/game-state.service';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
-import { GAME_TYPES } from '@/game/types';
+import { GAME_TYPE } from '@/game/types';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ export class MainMenuComponent implements OnInit
 {
   showOptions : boolean = false;
 
-  gameTypes = GAME_TYPES;
+  gameTypes = GAME_TYPE;
 
   constructor( private _router : Router, private _gameStateService : GameStateService, private _gameWorldService : GameWorldService ){}
 
@@ -29,10 +29,10 @@ export class MainMenuComponent implements OnInit
     switch( _type )
     {
       case 'classic' :
-        this._router.navigate( [ GAME_TYPES.CLASSIC ], { queryParams : { type : _type }, skipLocationChange : true } );
+        this._router.navigate( [ GAME_TYPE.CLASSIC ], { queryParams : { type : _type }, skipLocationChange : true } );
         break;
       case 'roguelike' :
-        this._router.navigate( [ GAME_TYPES.ROGUELIKE ], { queryParams : { type : _type }, skipLocationChange : true } );
+        this._router.navigate( [ GAME_TYPE.ROGUELIKE ], { queryParams : { type : _type }, skipLocationChange : true } );
         break;
 
       default :

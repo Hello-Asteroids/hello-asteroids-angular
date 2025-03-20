@@ -2,8 +2,7 @@ import { GameStateService } from '@/app/modules/game/services/game-state/game-st
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameWorldService } from '@/app/modules/game/services/game-world/game-world.service';
-import Player from '@/game/components/player';
-import { Factor, Modifier, PlayerStats } from '@/game/types';
+import { AsteroidStats, Factor, Modifier, PlayerStats, STAT_BLOCK } from '@/game/types';
 import { Banes, Boons } from '@/game/constants';
 import { FactorCardComponent } from './components/factor-card/factor-card.component';
 
@@ -63,37 +62,53 @@ export class LevelupComponent
     ]
   }
 
+  populateCards() : void
+  {
+    // TODO - Move logic here, also make it better cause it sux ahh right now
+  }
+
   handleCardClick( _selectedCard : number ) : void
   {
 
     const gameConfig = structuredClone( this.gameStateService.gameConfig );
 
     this.cards[ _selectedCard ].flatMap( factor => factor.modifiers ).forEach( ( mod : Modifier ) => {
-      const currentValue = gameConfig.playerStats[mod.property as keyof PlayerStats];
 
-      let newValue : number = currentValue + mod.value;
+      const statBlock = mod.statBlock === STAT_BLOCK.ASTEROID ? gameConfig.asteroidStats : gameConfig.playerStats;
 
-      switch( mod.operation )
-      {
-        case "add_percent" :
-          const percentAmount = currentValue * ( Math.abs( mod.value ) / 100 );
-          const dir = mod.value >= 0 ? 1 : -1;
-          newValue = currentValue + ( percentAmount * dir );
-          break;
-      }
-
-      if( mod.min )
-      {
-        newValue = Math.max( mod.min, newValue );
-      }
-
-      gameConfig.playerStats[ mod.property as keyof PlayerStats ] = newValue;
+      const currentValue = statBlock[ mod.property as keyof typeof statBlock ].value;
+      statBlock[ mod.property as keyof typeof statBlock ].value = modifyStatValue( currentValue, mod.value, mod.operation, mod.min );
     } );
 
-    gameConfig.playerStats.level = this.currentLevel;
+    gameConfig.playerStats.level.value = this.currentLevel;
+
+    console.log(gameConfig);
 
     this.gameStateService.gameConfig = gameConfig;
 
     this._router.navigate( [ '/roguelike' ], { skipLocationChange : true } );
   }
+}
+
+function modifyStatValue( _currentValue : number, _modifyFactor : number, _operation : string, _min? : number ) : number
+{
+  console.log( _currentValue, _modifyFactor, _operation, _min );
+  let value = _currentValue;
+  switch( _operation )
+  {
+    case "add_percent" :
+      value = _currentValue * ( 1 + _modifyFactor / 100 );
+      break;
+
+    default :
+      value = _currentValue + _modifyFactor;
+      break;
+  }
+
+  if( _min )
+  {
+    value = Math.max( _min, value );
+  }
+
+  return value;
 }

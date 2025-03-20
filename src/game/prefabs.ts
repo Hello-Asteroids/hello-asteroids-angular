@@ -16,14 +16,14 @@ import Duration from "@/game/components/duration";
 import RadialCollider from "@/game/components/radialCollider";
 import DestroysOnHit from "@/game/components/destroysOnHit";
 
-import { ANIMATIONS, asteroidMaxSpeed, debrisMaxSpeed, frameSize } from "@/game/constants";
+import { ANIMATIONS, debrisMaxSpeed, frameSize } from "@/game/constants";
 import Player from "@/game/components/player";
 import Animation from "@/game/components/animation";
 import WorthPoints from "@/game/components/worthPoints";
 import Enemy from "@/game/components/enemy";
 import { PlayerStats } from "./types";
 
-export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points : number, offset : number, radius : number, position? : { x : number, y : number } } ) : number => {
+export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, display : { offset : number, radius : number }, position? : { x : number, y : number } } ) : number => {
   const entity = addEntity( _world );
 
   addComponent( _world, Asteroid, entity );
@@ -37,23 +37,18 @@ export const asteroidPrefab = ( _world : IWorld, _opts : { tier : number, points
 
   Asteroid.tier[ entity ] = _opts.tier;
 
-  Sprite.frame[ entity ] = getRandomInt( 4, 7 ) + _opts.offset;
+  Sprite.frame[ entity ] = getRandomInt( 4, 7 ) + _opts.display.offset;
   Sprite.origin.x[ entity ] = frameSize / 2;
   Sprite.origin.y[ entity ] = frameSize / 2;
 
   Position.x[ entity ] = _opts.position?.x || getRandomInt( 0, window.innerWidth );
   Position.y[ entity ] = _opts.position?.y || getRandomInt( 0, window.innerHeight );
 
-  Velocity.value.x[ entity ] = getRandomInt( -asteroidMaxSpeed, asteroidMaxSpeed );
-  Velocity.value.y[ entity ] = getRandomInt( -asteroidMaxSpeed, asteroidMaxSpeed );
-
   WrapScreen.offset[ entity ] = frameSize / 2;
 
-  RadialCollider.radius[ entity ] = _opts.radius;
+  RadialCollider.radius[ entity ] = _opts.display.radius;
   RadialCollider.layer[ entity ] = 1;
   RadialCollider.mask[ entity ].set( [ 3 ] );
-
-  WorthPoints.value[ entity ] = _opts.points;
 
   return entity;
 }
@@ -103,21 +98,21 @@ export const playerPrefab = ( _world : IWorld, _opts : { position : { x : number
   Position.x[ entity ] = _opts.position.x;
   Position.y[ entity ] = _opts.position.y;
 
-  Velocity.max[ entity ] = _opts.playerStats.maxSpeed;
+  Velocity.max[ entity ] = _opts.playerStats.maxSpeed.value;
   Velocity.value.x[ entity ] = 0;
   Velocity.value.y[ entity ] = 0;
   Velocity.acceleration.x[ entity ] = 0;
   Velocity.acceleration.y[ entity ] = 0;
 
-  TankControls.acceleration[ entity ] = _opts.playerStats.acceleration;
-  TankControls.rotationSpeed[ entity ] = _opts.playerStats.rotationSpeed;
+  TankControls.acceleration[ entity ] = _opts.playerStats.acceleration.value;
+  TankControls.rotationSpeed[ entity ] = _opts.playerStats.rotationSpeed.value;
 
-  Weapon.rate[ entity ] = _opts.playerStats.fireRate; // Per second
-  Weapon.range[ entity ] = _opts.playerStats.range; // Per second
-  Weapon.projectileCount[ entity ] = _opts.playerStats.projectileCount;
-  Weapon.projectileSpeed[ entity ] = _opts.playerStats.projectileSpeed;
-  Weapon.deviation[ entity ] = _opts.playerStats.deviation;
-  Weapon.spread[ entity ] = _opts.playerStats.spread;
+  Weapon.rate[ entity ] = _opts.playerStats.fireRate.value; // Per secon.valued
+  Weapon.range[ entity ] = _opts.playerStats.range.value; // Per secon.valued
+  Weapon.projectileCount[ entity ] = _opts.playerStats.projectileCount.value;
+  Weapon.projectileSpeed[ entity ] = _opts.playerStats.projectileSpeed.value;
+  Weapon.deviation[ entity ] = _opts.playerStats.deviation.value;
+  Weapon.spread[ entity ] = _opts.playerStats.spread.value;
 
   WrapScreen.offset[ entity ] = frameSize / 2;
 

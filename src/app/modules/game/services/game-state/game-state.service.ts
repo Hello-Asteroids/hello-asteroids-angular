@@ -11,7 +11,7 @@ import type { GameConfig } from '@/game/types';
 export class GameStateService implements IInvokableService
 {
 
-  gameConfig! : GameConfig;
+  gameConfig : GameConfig = GameConfigs.classic;
 
   paused : boolean = false;
 

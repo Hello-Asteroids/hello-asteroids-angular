@@ -2,9 +2,14 @@ import { GameStateService } from "@/app/modules/game/services/game-state/game-st
 import { GameWorldService } from "@/app/modules/game/services/game-world/game-world.service";
 import { IWorld, pipe, System, Types } from "bitecs";
 
-export enum GAME_TYPES {
+export enum GAME_TYPE {
   CLASSIC = 'classic',
   ROGUELIKE = 'roguelike'
+}
+
+export enum STAT_BLOCK {
+  ASTEROID,
+  PLAYER
 }
 
 export type Vector2 = {
@@ -70,7 +75,7 @@ export class SystemPipeline
 
 export type GameConfig = {
 
-  id : GAME_TYPES,
+  id : GAME_TYPE,
 
   startingLives : number,
   rewardLifeThreshold : number,
@@ -83,26 +88,37 @@ export type GameConfig = {
 
 }
 
+export type Stat = {
+  value : number,
+  description : string
+}
+
 export type PlayerStats = {
-  level : number,
+  level : Stat,
 
   // Movement Stats
-  maxSpeed : number,
-  acceleration : number,
-  rotationSpeed : number,
+  maxSpeed : Stat,
+  acceleration : Stat,
+  rotationSpeed : Stat,
 
   // Weapon Stats
-  fireRate : number,
-  range : number,
-  projectileCount : number,
-  projectileSpeed : number,
-  deviation : number,
-  spread : number
+  fireRate : Stat,
+  range : Stat,
+  projectileCount : Stat,
+  projectileSpeed : Stat,
+  deviation : Stat,
+  spread : Stat
 }
 
 export type AsteroidStats = {
-  health : number,
-  maxSpeed : number
+  health : Stat,
+  maxSpeed : Stat,
+  minSpeed : Stat,
+  spawnCount : Stat,
+
+  smPointValue : Stat,
+  mdPointValue : Stat,
+  lgPointValue : Stat
 }
 
 export type Factor = {
@@ -111,6 +127,7 @@ export type Factor = {
 }
 
 export type Modifier = {
+  statBlock : STAT_BLOCK,
   description : string,
   property : string,
   value : number,

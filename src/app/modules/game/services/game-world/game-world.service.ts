@@ -3,8 +3,7 @@ import { Component, createWorld, defineQuery, getAllEntities, IWorld, removeEnti
 
 import { IInvokableService } from '@/app/common/types';
 
-import Player from '@/game/components/player';
-import Asteroid from '@/game/components/asteroid';
+import componentMap from '@/game/components';
 import { asteroidPrefab, playerSpawnerPrefab } from '@/game/prefabs';
 import { ASTEROID_SPRITE_CONFIGS } from '@/game/constants';
 import { createPrefab, createPrefabBundle } from '@/app/common/utilities';
@@ -48,38 +47,35 @@ export class GameWorldService implements IInvokableService
     if( _clearWorld )
       this.clear();
 
-    this.destroyQuery( [ Asteroid ] );
+    this.destroyQuery( [ componentMap['Asteroid'] ] );
 
     let i;
 
-    const asteroids = {
-      large : 3,
-      medium : 0,
-      small : 0
-    }
+    const asteroids = [ 0, 0, 3];
 
     for( i = 0; i < _level - 1; i++ )
     {
-      if( asteroids.small < 2 )
+      if( asteroids[0] < 3 )
       {
-        asteroids.small++;
+        asteroids[0] += 2;
       }
       else
       {
-        asteroids.small = 0;
-        asteroids.medium++;
+        asteroids[0] = 1;
+        asteroids[1] += 2;
       }
 
-      if( asteroids.medium >= 2 )
+      if( asteroids[1] > 2 )
       {
-        asteroids.medium = 0;
-        asteroids.large++;
+        asteroids[1] = 1;
+        asteroids[2]++;
       }
     }
 
-    createPrefabBundle( this._world, asteroids.small, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[0] );
-    createPrefabBundle( this._world, asteroids.medium, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[1] );
-    createPrefabBundle( this._world, asteroids.large, asteroidPrefab, ASTEROID_SPRITE_CONFIGS[2] );
+    for( i = 0; i < 3; i++ )
+    {
+      createPrefabBundle( this._world, asteroids[i], asteroidPrefab, { tier : i, display : ASTEROID_SPRITE_CONFIGS[i] } );
+    }
   }
 
   spawnPlayer() : void
@@ -89,7 +85,7 @@ export class GameWorldService implements IInvokableService
 
   refreshPlayer() : void
   {
-    this.destroyQuery( [ Player ] );
+    this.destroyQuery( [ componentMap['Player'] ] );
     this.spawnPlayer();
   }
 
@@ -101,7 +97,7 @@ export class GameWorldService implements IInvokableService
 
   get playerCount() : number
   {
-    const playerQuery = defineQuery( [ Player ] );
+    const playerQuery = defineQuery( [ componentMap['Player'] ] );
     return playerQuery( this._world ).length;
   }
 

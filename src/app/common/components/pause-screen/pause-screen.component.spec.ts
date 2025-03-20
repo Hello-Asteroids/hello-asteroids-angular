@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LevelupComponent } from './levelup.component';
+import { PauseScreenComponent } from './pause-screen.component';
 
-describe('LevelupComponent', () => {
-  let component: LevelupComponent;
-  let fixture: ComponentFixture<LevelupComponent>;
+describe('PauseScreenComponent', () => {
+  let component: PauseScreenComponent;
+  let fixture: ComponentFixture<PauseScreenComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LevelupComponent]
+      imports: [PauseScreenComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LevelupComponent);
+    fixture = TestBed.createComponent(PauseScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
