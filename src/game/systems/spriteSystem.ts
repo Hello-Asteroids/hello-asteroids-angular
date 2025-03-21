@@ -51,7 +51,6 @@ export default function SpriteSystem( _scene : Scene, _blitterObject : GameObjec
     entities = blitterExitQuery( _world );
     for( i = 0; i < entities.length; i++ )
     {
-      console.log( 'exit query' )
       entity = entities[i];
       const blitterObject = displayObjectMap.get( entity ) as GameObjects.Bob;
 

@@ -44,7 +44,6 @@ export class GameStateService implements IInvokableService
 
   updateScore( value : number ) : void
   {
-    console.log(value)
     this.score.update( current => current + +value );
 
     if( this.score() > this.hiScore() )

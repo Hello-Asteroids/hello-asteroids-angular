@@ -33,8 +33,6 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
   override ngOnInit() : void
   {
     this.gameStateService.gameConfig = GameConfigs.roguelike;
-    console.log( 'do?', this.gameStateService.gameConfig )
-    console.log( 'done',GameConfigs.roguelike)
     super.ngOnInit();
   }
 
@@ -55,7 +53,6 @@ export class RoguelikeGameplayComponent extends GameplayComponent implements OnI
 
   onLevelUpSelected( _event : any ) : void
   {
-    console.log('return')
     this.gameWorldService.loadLevel( this.gameStateService.level() );
     this.gameWorldService.refreshPlayer();
   }
